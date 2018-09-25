@@ -120,7 +120,7 @@ Are possible to create any tag:
 - [CreateTagType specify type and name only, and automatcly calculated size from property or array](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L146)
 - [CreateTagType specify name,size,length for array](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L163)
 
-Size are specified in TagSize.
+Size are specified in [TagSize](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagSize.cs).
 
 For array specify size in definition.
 
