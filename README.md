@@ -12,6 +12,8 @@ Comunication for Allen-Bradley Rockwell PLC in .NET Core
 
 [Special tanks for testing Mavert](https://www.mavert.it)
 
+Special thanks to Mario Averoldi for technical support <mario.averoldi@mavert.it>.
+
 [Corsinvest Srl](https://www.corsinvest.it)
 
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/franklupo/cv4ab-api-dotnet/master.svg)](https://ci.appveyor.com/project/franklupo/cv4ab-api-dotnet)
@@ -58,6 +60,7 @@ The client is wapper of LibTagPLC library.
 - Decode Error
 - Group interval read/write
 - Event result Tag and TagGroup with result changed value
+- Enable "Fail Operation Raise Exception"
 
 ## Usage
 

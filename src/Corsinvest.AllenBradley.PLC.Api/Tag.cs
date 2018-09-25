@@ -43,23 +43,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
             url += $"&cpu={controller.CPUType}&elem_size={Size}&elem_count={Length}&name={Name}";
             if (debugLevel > 0) { url = $"&debug={debugLevel}"; }
 
-            TType value = default(TType);
-            var typeTType = typeof(TType);
-            if (typeTType == typeof(string))
-            {
-                value = (TType)((object)"");
-            }
-            else if (typeTType.IsArray)
-            {
-                value = (TType)Activator.CreateInstance(typeTType, Length);
-            }
-            else
-            {
-                value = (TType)Activator.CreateInstance(typeTType);
-            }
-
-            TagValueManager.FixStringNullToEmpty(value);
-            Value = value;
+            Value = TagHelper.CreateObject<TType>(Length);
 
             //create reference
             Handle = NativeMethod.plc_tag_create(url);
@@ -173,10 +157,17 @@ namespace Corsinvest.AllenBradley.PLC.Api
             var timestamp = DateTime.Now;
             var watch = Stopwatch.StartNew();
             var statusCode = NativeMethod.plc_tag_read(Handle, Controller.Timeout);
+        
             watch.Stop();
             IsRead = true;
 
             var result = new ResultOperation(this, timestamp, watch.ElapsedMilliseconds, statusCode);
+
+            //check raise exception
+            if (Controller.FailOperationRaiseException && StatusCodeOperation.IsError(statusCode))
+            {
+                throw new TagOperationException(result);
+            }
 
             //event change value
             if (IsChangedValue) { Changed?.Invoke(result); }
@@ -222,7 +213,16 @@ namespace Corsinvest.AllenBradley.PLC.Api
             var statusCode = NativeMethod.plc_tag_write(Handle, Controller.Timeout);
             watch.Stop();
             IsWrite = true;
-            return new ResultOperation(this, timestamp, watch.ElapsedMilliseconds, statusCode);
+
+            var result = new ResultOperation(this, timestamp, watch.ElapsedMilliseconds, statusCode);
+
+            //check raise exception
+            if (Controller.FailOperationRaiseException && StatusCodeOperation.IsError(statusCode))
+            {
+                throw new TagOperationException(result);
+            }
+
+            return result;
         }
 
         /// <summary>

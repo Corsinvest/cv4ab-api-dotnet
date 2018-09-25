@@ -16,7 +16,9 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <summary>
         /// Byte Length string in header
         /// </summary>
-        private const int BYTE_LENGTH_STRING = 4;
+        private const byte BYTE_HEADER_LENGTH_STRING = 4;
+
+        const byte MAX_LENGT_STRING = 82;
 
         internal TagValueManager(ITag tag) { _tag = tag; }
 
@@ -195,11 +197,11 @@ namespace Corsinvest.AllenBradley.PLC.Api
         {
             var sb = new StringBuilder();
 
+            //max length string
+            var length = GetInt32(offset);
+
             //read only length of string
-            for (var i = 0; i < GetUInt8(offset); i++)
-            {
-                sb.Append((char)GetUInt8(offset + BYTE_LENGTH_STRING + i));
-            }
+            for (var i = 0; i < length; i++) { sb.Append((char)GetUInt8(offset + BYTE_HEADER_LENGTH_STRING + i)); }
             return sb.ToString();
         }
 
@@ -210,11 +212,24 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="offset"></param>
         public void SetString(string value, int offset = 0)
         {
-            if (value.Length > 82) { throw new ArgumentOutOfRangeException("Length strign <= 82!"); }
+            if (value.Length > MAX_LENGT_STRING) { throw new IndexOutOfRangeException($"Length strign <= {MAX_LENGT_STRING}!"); }
 
-            SetUInt8((byte)value.Length, offset);
-            for (int i = 0; i < 82; i++) { SetUInt8((byte)0, offset + BYTE_LENGTH_STRING + i); }
-            for (int i = 0; i < value.Length; i++) { SetUInt8((byte)value[i], offset + BYTE_LENGTH_STRING + i); }
+            //set length
+            SetInt32(value.Length, offset);
+
+            var strIdx = 0;
+
+            //copy data
+            for (strIdx = 0; strIdx < value.Length; strIdx++)
+            {
+                SetUInt8((byte)value[strIdx], offset + BYTE_HEADER_LENGTH_STRING + strIdx);
+            }
+
+            // pad with zeros
+            for (; strIdx < MAX_LENGT_STRING; strIdx++)
+            {
+                SetUInt8(0, offset + BYTE_HEADER_LENGTH_STRING + strIdx);
+            }
         }
 
         /// <summary>
@@ -224,7 +239,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <returns></returns>
         public bool GetBool(int index)
         {
-            if (_tag.Size * 8 <= index) { throw new ArgumentOutOfRangeException("Index out of bound!"); }
+            if (_tag.Size * 8 <= index) { throw new IndexOutOfRangeException("Index out of bound!"); }
             if (_tag.Size == TagSize.INT32) { return (GetUInt32(0) & (1 << index)) != 0; }
             else if (_tag.Size == TagSize.INT16) { return (GetUInt16(0) & (1 << index)) != 0; }
             else if (_tag.Size == TagSize.INT8) { return (GetUInt8(0) & (1 << index)) != 0; }
@@ -239,7 +254,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="value"></param>
         public void SetBool(int index, bool value)
         {
-            if (_tag.Size * 8 <= index) { throw new ArgumentOutOfRangeException("Index out of bound!"); }
+            if (_tag.Size * 8 <= index) { throw new IndexOutOfRangeException("Index out of bound!"); }
             var index2 = Math.Pow(2, index);
 
             if (_tag.Size == TagSize.INT32)

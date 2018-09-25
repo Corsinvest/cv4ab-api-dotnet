@@ -19,10 +19,11 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <summary>
         /// Controller definition
         /// </summary>
-        /// <param name="ipAddress">IP address of the gateway for this protocol. Could be the IP address of the PLC you want to access.</param>
+        /// <param name="ipAddress">IP address of the gateway for this protocol.
+        /// Could be the IP address of the PLC you want to access.</param>
         /// <param name="path">Required for LGX, Optional for PLC/SLC/MLGX IOI path to access the PLC from the gateway.
         /// <para></para>Communication Port Type: 1- Backplane, 2- Control Net/Ethernet, DH+ Channel A, DH+ Channel B, 3- Serial
-        /// <para></para> Slot number where cpu is installed: 0,1.. </param>
+        /// <para></para>Slot number where cpu is installed: 0,1.. </param>
         /// <param name="cpuType">AB CPU models</param>
         public Controller(string ipAddress, string path, CPUType cpuType)
         {
@@ -37,13 +38,19 @@ namespace Corsinvest.AllenBradley.PLC.Api
         }
 
         /// <summary>
-        /// Communication timeout 
+        /// Raise Exception on failed operation
+        /// </summary>
+        /// <value></value>
+        public bool FailOperationRaiseException { get; set; } = false;
+
+        /// <summary>
+        /// Communication timeout
         /// </summary>
         /// <value></value>
         public int Timeout { get; set; } = 5000;
 
         /// <summary>
-        /// Tags
+        /// Groups
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<TagGroup> Groups { get { return _tagGroups.AsReadOnly(); } }
@@ -149,5 +156,3 @@ namespace Corsinvest.AllenBradley.PLC.Api
         #endregion
     }
 }
-
-//http://ehelp.ingeardrivers.com/netlogix7/WebHelp/netlogix.htm

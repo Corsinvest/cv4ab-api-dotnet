@@ -139,16 +139,13 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <summary>
         /// Create Tag custom Type Class
         /// </summary>
-        /// <param name="name">The textual name of the tag to access. The name is CreateFreeanything allowed by the protocol.
+        /// <param name="name">The textual name of the tag to access. The name is anything allowed by the protocol.
         /// E.g. myDataStruct.rotationTimer.ACC, myDINTArray[42] etc.</param>
         /// <typeparam name="TCustomType">Class to create</typeparam>
         /// <returns></returns>
         public Tag<TCustomType> CreateTagType<TCustomType>(string name)
         {
-            var obj = Activator.CreateInstance(typeof(TCustomType));
-            TagValueManager.FixStringNullToEmpty(obj);
-
-            return CreateTagType<TCustomType>(name, TagSize.GetSizeFromObject(obj));
+            return CreateTagType<TCustomType>(name, TagSize.GetSizeFromObject(TagHelper.CreateObject<TCustomType>(1)));
         }
 
         /// <summary>
@@ -222,7 +219,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// Scan operation behavior of Tags
         /// </summary>
         /// <value></value>
-        public ScanMode ScanMode { get; set; } = ScanMode.ReadAndWrite;
+        public ScanMode ScanMode { get; set; } = ScanMode.Read;
 
         /// <summary>
         /// Scanning update (refresh) interval in milliseconds

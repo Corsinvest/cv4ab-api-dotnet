@@ -7,6 +7,29 @@ namespace Corsinvest.AllenBradley.PLC.Api
     /// </summary>
     public static class TagHelper
     {
+        internal static TType CreateObject<TType>(int length)
+        {
+            var obj = default(TType);
+            var typeTType = typeof(TType);
+            
+            if (typeTType == typeof(string))
+            {
+                obj = (TType)((object)"");
+            }
+            else if (typeTType.IsArray)
+            {
+                obj = (TType)Activator.CreateInstance(typeTType, length);
+            }
+            else
+            {
+                obj = (TType)Activator.CreateInstance(typeTType);
+            }
+
+            TagValueManager.FixStringNullToEmpty(obj);
+
+            return obj;
+        }
+
         /// <summary>
         /// Performs Linear scaling conversion. 
         /// </summary>

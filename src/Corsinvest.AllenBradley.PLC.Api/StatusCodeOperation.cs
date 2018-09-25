@@ -195,5 +195,12 @@
         /// (Windows only) Error initializing/terminating use of Windows sockets.
         /// </summary>
         public const int ERR_WINSOCK = -36;
+
+        /// <summary>
+        /// Check code in error
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static bool IsError(int code) { return (code != STATUS_PENDING && code != STATUS_OK); }
     }
 }
