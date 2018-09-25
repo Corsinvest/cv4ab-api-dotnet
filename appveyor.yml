@@ -3,6 +3,9 @@ image: Visual Studio 2017
 build_script:
 - cmd: >-
     dotnet --version
+
     dotnet restore
+    
     dotnet build -c Release
+    
     dotnet pack -c Release

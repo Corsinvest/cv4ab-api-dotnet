@@ -14,6 +14,8 @@ Comunication for Allen-Bradley PLC in .NET Core
 
 [Corsinvest Srl](https://www.corsinvest.it)
 
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/franklupo/cv4ab-api-dotnet/master.svg)](https://ci.appveyor.com/project/franklupo/cv4ab-api-dotnet)
+
 ```text
    ______                _                      __
   / ____/___  __________(_)___ _   _____  _____/ /_
