@@ -173,7 +173,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="name">The textual name of the tag to access. The name is anything allowed by the protocol.
         /// E.g. myDataStruct.rotationTimer.ACC, myDINTArray[42] etc.</param>
         /// <param name="length">elements count: 1- single, n-array.</param>
-        /// <typeparam name="TCustomType"></typeparam>
+        /// <typeparam name="TCustomType">Type to create</typeparam>
         /// <returns></returns>
         public Tag<TCustomType> CreateTagArray<TCustomType>(string name, int length)
         {
