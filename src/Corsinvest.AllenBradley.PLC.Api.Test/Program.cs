@@ -23,7 +23,7 @@ namespace Corsinvest.AllenBradley.Test
 
         private static void PrintChange(string @event, ResultOperation result)
         {
-            Console.Out.WriteLine($"{@event} {result.Timestamp} Changed: {result.Tag.Name}");
+            Console.Out.WriteLine($"{@event} {result.Timestamp} Changed: {result.Tag.Name} {result.StatusCode}");
         }
 
         static void TagChanged(ResultOperation result)
@@ -41,6 +41,11 @@ namespace Corsinvest.AllenBradley.Test
             {
                 Console.Out.WriteLine("Ping " + controller.Ping(true));
                 var grp = controller.CreateGroup();
+
+                var tag3 = grp.CreateTagArray<float[]>("OvenTemp", 36);
+
+                var tag_1 = grp.CreateTagArray<string[]>("Track", 300);
+                //or
                 var tag = grp.CreateTagType<string[]>("Track", TagSize.STRING, 300);
                 tag.Changed += TagChanged;
                 var aa = tag.Read();

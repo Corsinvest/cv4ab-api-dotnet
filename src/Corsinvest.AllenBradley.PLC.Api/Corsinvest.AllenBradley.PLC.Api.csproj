@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
     <Company>Corsinvest Srl</Company>
     <Authors>Daniele Corsini</Authors>
     <Copyright>Corsinvest Srl</Copyright>
@@ -15,9 +15,9 @@
     <PackageIconUrl>https://www.corsinvest.it/wp-content/uploads/2016/08/Corsinvest.ico</PackageIconUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
-  
+
   <ItemGroup>
-		<Content CopyToOutputDirectory="Always" Include="libplctag.so" Link="libplctag.so" Pack="true" PackagePath="runtimes\linux-x64\native\libplctag.so" />
-		<Content CopyToOutputDirectory="Always" Include="plctag.dll" Link="plctag.dll" Pack="true" PackagePath="runtimes/win-x64/native/plctag.dll" />
-	</ItemGroup>
+    <Content CopyToOutputDirectory="Always" Include="libplctag.so" Link="libplctag.so" Pack="true" PackagePath="runtimes\linux-x64\native\libplctag.so" />
+    <Content CopyToOutputDirectory="Always" Include="plctag.dll" Link="plctag.dll" Pack="true" PackagePath="runtimes/win-x64/native/plctag.dll" />
+  </ItemGroup>
 </Project>

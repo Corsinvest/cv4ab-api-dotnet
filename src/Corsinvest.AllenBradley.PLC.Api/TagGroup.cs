@@ -166,6 +166,27 @@ namespace Corsinvest.AllenBradley.PLC.Api
             _tags.Add(Controller.AddTagInternal(tag));
             return tag;
         }
+
+        /// <summary>
+        /// Create Tag array.
+        /// </summary>
+        /// <param name="name">The textual name of the tag to access. The name is anything allowed by the protocol.
+        /// E.g. myDataStruct.rotationTimer.ACC, myDINTArray[42] etc.</param>
+        /// <param name="length">elements count: 1- single, n-array.</param>
+        /// <typeparam name="TCustomType"></typeparam>
+        /// <returns></returns>
+        public Tag<TCustomType> CreateTagArray<TCustomType>(string name, int length)
+        {
+            var type = typeof(TCustomType);
+            if (!type.IsArray) { throw new ArgumentException("Is not array!"); }
+
+            var obj = (Array)Activator.CreateInstance(type, length);
+            TagValueManager.FixStringNullToEmpty(obj);
+
+            return CreateTagType<TCustomType>(name,
+                                              TagSize.GetSizeFromObject(obj.GetValue(0)),
+                                              length);
+        }
         #endregion
 
         /// <summary>

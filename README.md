@@ -121,6 +121,7 @@ Are possible to create any tag:
 - [CreateTagFloat32](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L137)
 - [CreateTagType specify type and name only, and automatcly calculated size from property or array](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L146)
 - [CreateTagType specify name,size,length for array](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L163)
+- [CreateTagArray](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L178)
 
 Size are specified in [TagSize](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagSize.cs).
 

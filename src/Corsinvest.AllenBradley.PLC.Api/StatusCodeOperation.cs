@@ -21,7 +21,8 @@
         public const int ERR_NULL_PTR = -1;
 
         /// <summary>
-        /// An attempt to access a value outside of the allow limits was made. Usually this is in conjunction with accessing a data word in a tag.
+        /// An attempt to access a value outside of the allow limits was made. 
+        /// Usually this is in conjunction with accessing a data word in a tag.
         /// </summary>
         public const int ERR_OUT_OF_BOUNDS = -2;
 
