@@ -12,6 +12,8 @@ Comunication for Allen-Bradley PLC in .NET Core
 
 [Special tanks for testing Mavert](https://www.mavert.it)
 
+[Corsinvest Srl](https://www.corsinvest.it)
+
 ```text
    ______                _                      __
   / ____/___  __________(_)___ _   _____  _____/ /_
@@ -107,19 +109,18 @@ static void GroupChanged(IEnumerable<ResultOperation> results)
 
 Are possible to create any tag:
 
-- CreateTagInt32
-- CreateTagUInt32
-- CreateTagInt16
-- CreateTagUInt16
-- CreateTagInt8
-- CreateTagUInt8
-- CreateTagString
-- CreateTagFloat32
-- CreateTagType specify type and name only, and automatcly calculated size from property or array
-- CreateTagType specify name,size,length for array
+- [CreateTagInt32](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L81)
+- [CreateTagUInt32](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L89)
+- [CreateTagInt16](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L97)
+- [CreateTagUInt16](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L105)
+- [CreateTagInt8](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L113)
+- [CreateTagUInt8](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L121)
+- [CreateTagString](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L129)
+- [CreateTagFloat32](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L137)
+- [CreateTagType specify type and name only, and automatcly calculated size from property or array](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L146)
+- [CreateTagType specify name,size,length for array](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L163)
 
 Size are specified in TagSize.
-
 
 For array specify size in definition.
 

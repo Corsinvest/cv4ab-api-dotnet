@@ -15,26 +15,9 @@
     <PackageIconUrl>https://www.corsinvest.it/wp-content/uploads/2016/08/Corsinvest.ico</PackageIconUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
-  <!--
+  
   <ItemGroup>
-    <Content Include="plctag.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="libplctag.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="plctag.dll" Pack="true" PackagePath="runtimes\linux-x64\native\libplctag.so" />
-    <None Include="libplctag.so" Pack="true" PackagePath="runtimes/win-x64/native/plctag.dll"/>
-  </ItemGroup>
-  -->
-
-  <ItemGroup>
-		<Content CopyToOutputDirectory="Always" Include="libplctag.so" 
-      Link="libplctag.so" Pack="true" PackagePath="runtimes\linux-x64\native\libplctag.so" />
-		<Content CopyToOutputDirectory="Always" Include="plctag.dll" Link="plctag.dll" 
-    Pack="true" PackagePath="runtimes/win-x64/native/plctag.dll" />
+		<Content CopyToOutputDirectory="Always" Include="libplctag.so" Link="libplctag.so" Pack="true" PackagePath="runtimes\linux-x64\native\libplctag.so" />
+		<Content CopyToOutputDirectory="Always" Include="plctag.dll" Link="plctag.dll" Pack="true" PackagePath="runtimes/win-x64/native/plctag.dll" />
 	</ItemGroup>
 </Project>
