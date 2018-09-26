@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
 
 namespace Corsinvest.AllenBradley.PLC.Api
 {
@@ -120,13 +119,6 @@ namespace Corsinvest.AllenBradley.PLC.Api
             _tagGroups.Add(group);
             return group;
         }
-
-        /// <summary>
-        /// Decode error.
-        /// </summary>
-        /// <param name="error"></param>
-        /// <returns></returns>
-        public string DecodeError(int error) { return Marshal.PtrToStringAnsi(NativeMethod.plc_tag_decode_error(error)); }
 
         #region IDisposable Support
         void Dispose(bool disposing)

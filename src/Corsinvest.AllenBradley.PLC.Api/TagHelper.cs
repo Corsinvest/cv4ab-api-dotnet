@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 namespace Corsinvest.AllenBradley.PLC.Api
 {
@@ -11,7 +12,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         {
             var obj = default(TType);
             var typeTType = typeof(TType);
-            
+
             if (typeTType == typeof(string))
             {
                 obj = (TType)((object)"");
@@ -58,6 +59,28 @@ namespace Corsinvest.AllenBradley.PLC.Api
         {
             if (minRaw > maxRaw || minScale > maxScale) { throw new InvalidOperationException(); }
             return (Math.Sqrt((((double)tag.Value) - minRaw) / (maxRaw - minRaw)) * (maxScale - minScale)) + minScale;
+        }
+
+        /// <summary>
+        /// Number to bit array
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static BitArray NumberToBits(int value) { return new BitArray(new[] { value }); }
+
+        /// <summary>
+        /// Bite array to number
+        /// </summary>
+        /// <param name="bits"></param>
+        /// <returns></returns>
+        public static int BitsToNumber(BitArray bits)
+        {
+            if (bits == null) { throw new ArgumentNullException("binary"); }
+            if (bits.Length > 32) { throw new ArgumentException("must be at most 32 bits long"); }
+
+            var result = new int[1];
+            bits.CopyTo(result, 0);
+            return result[0];
         }
     }
 }

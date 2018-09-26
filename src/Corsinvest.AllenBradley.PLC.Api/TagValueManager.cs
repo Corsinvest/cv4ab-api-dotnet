@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -233,11 +234,11 @@ namespace Corsinvest.AllenBradley.PLC.Api
         }
 
         /// <summary>
-        /// Get bool value
+        /// Get bit from index
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public bool GetBool(int index)
+        public bool GetBit(int index)
         {
             if (_tag.Size * 8 <= index) { throw new IndexOutOfRangeException("Index out of bound!"); }
             if (_tag.Size == TagSize.INT32) { return (GetUInt32(0) & (1 << index)) != 0; }
@@ -248,11 +249,11 @@ namespace Corsinvest.AllenBradley.PLC.Api
         }
 
         /// <summary>
-        /// Set bool value
+        /// Set bit from index and value
         /// </summary>
         /// <param name="index"></param>
         /// <param name="value"></param>
-        public void SetBool(int index, bool value)
+        public void SetBit(int index, bool value)
         {
             if (_tag.Size * 8 <= index) { throw new IndexOutOfRangeException("Index out of bound!"); }
             var index2 = Math.Pow(2, index);
@@ -272,6 +273,31 @@ namespace Corsinvest.AllenBradley.PLC.Api
                 var data = GetUInt8(0);
                 SetUInt8((byte)(value ? data | (byte)index2 : data ^ (byte)index2), 0);
             }
+        }
+
+        /// <summary>
+        /// Get bit array from value
+        /// </summary>
+        /// <returns></returns>
+        public BitArray GetBits()
+        {
+            if (_tag.Size == TagSize.INT32) { return new BitArray(new[] { (int)GetUInt32(0) }); }
+            else if (_tag.Size == TagSize.INT16) { return new BitArray(new[] { (int)GetUInt16(0) }); }
+            else if (_tag.Size == TagSize.INT8) { return new BitArray(new[] { GetUInt8(0) }); }
+
+            throw new Exception("Error data type!");
+        }
+
+        /// <summary>
+        /// Set bits from BitArray
+        /// </summary>
+        /// <param name="bits"></param>
+        public void SetBits(BitArray bits)
+        {
+            if (bits == null) { throw new ArgumentNullException("binary"); }
+            if (bits.Length > 32) { throw new ArgumentOutOfRangeException("must be at most 32 bits long"); }
+
+            for (int i = 0; i < _tag.Size * 8; i++) { SetBit(i, bits[i]); }
         }
 
         /// <summary>

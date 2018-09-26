@@ -1,4 +1,6 @@
-﻿namespace Corsinvest.AllenBradley.PLC.Api
+﻿using System.Runtime.InteropServices;
+
+namespace Corsinvest.AllenBradley.PLC.Api
 {
     /// <summary>
     /// Status code operation.
@@ -202,5 +204,12 @@
         /// <param name="code"></param>
         /// <returns></returns>
         public static bool IsError(int code) { return (code != STATUS_PENDING && code != STATUS_OK); }
+
+                /// <summary>
+        /// Decode error.
+        /// </summary>
+        /// <param name="code">Error code</param>
+        /// <returns></returns>
+        public static string DecodeError(int code) { return Marshal.PtrToStringAnsi(NativeMethod.plc_tag_decode_error(code)); }
     }
 }

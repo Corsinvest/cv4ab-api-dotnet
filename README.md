@@ -57,10 +57,12 @@ The client is wapper of LibTagPLC library.
   - Tag
 - Value property decode value natively
 - Lock/Unlock for thread operation
-- Decode Error
+- Decode Error **StatusCodeOperation.DecodeError()**
 - Group interval read/write
 - Event result Tag and TagGroup with result changed value
 - Enable "Fail Operation Raise Exception"
+- Value Manager directry modify
+- Bit manipulation
 
 ## Usage
 
