@@ -1,7 +1,7 @@
 namespace Corsinvest.AllenBradley.PLC.Api
 {
     /// <summary>
-    /// CPU
+    /// AB CPU models
     /// </summary>
     public enum CPUType
     {

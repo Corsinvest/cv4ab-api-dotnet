@@ -11,7 +11,6 @@ namespace Corsinvest.AllenBradley.PLC.Api
     public class Controller : IDisposable
     {
         private List<TagGroup> _tagGroups = new List<TagGroup>();
-        private List<ITag> _tags = new List<ITag>();
 
         private bool _disposed;
 
@@ -58,17 +57,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// All Tags
         /// </summary>
         /// <returns></returns>
-        public IReadOnlyList<ITag> Tags { get { return _tags.AsReadOnly(); } }
-
-        internal ITag AddTagInternal(ITag tag)
-        {
-            if (_tags.Contains(tag) || _tags.Any(a => a.Name == tag.Name))
-            {
-                throw new ArgumentException("Tag already exists!");
-            }
-            _tags.Add(tag);
-            return tag;
-        }
+        public IReadOnlyList<ITag> Tags { get { return _tagGroups.SelectMany(a => a.Tags).Distinct().ToList().AsReadOnly(); } }
 
         /// <summary>
         /// IP address of the gateway for this protocol. Could be the IP address of the PLC you want to access.

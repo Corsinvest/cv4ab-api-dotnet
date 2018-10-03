@@ -1,7 +1,7 @@
 using System;
 
 namespace Corsinvest.AllenBradley.PLC.Api
-{  
+{
     /// <summary>
     /// Tag operation exception
     /// </summary>
@@ -9,7 +9,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
     public class TagOperationException : Exception
     {
         /// <summary>
-        /// 
+        /// Costrucor
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>

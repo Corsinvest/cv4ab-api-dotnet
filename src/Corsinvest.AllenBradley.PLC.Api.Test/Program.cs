@@ -42,15 +42,15 @@ namespace Corsinvest.AllenBradley.Test
                 Console.Out.WriteLine("Ping " + controller.Ping(true));
                 var grp = controller.CreateGroup();
 
-                var tagBPLC1 = grp.CreateTagInt8("TKP_PLC_B_P12");
-                tagBPLC1.Read();
+                 var tagBPLC1 = grp.CreateTagInt32("TKP_PLC_B_P1");
+                 tagBPLC1.Read();
 
-                var tagBPC1 = grp.CreateTagInt8("TKP_PC_B_P1");
-                var tagBarcode = grp.CreateTagString("TKP_PLC_S_P1");
+                // var tagBPC1 = grp.CreateTagInt32("TKP_PC_B_P1");
+                // var tagBarcode = grp.CreateTagString("TKP_PLC_S_P1");
 
-                var tag3 = grp.CreateTagArray<float[]>("OvenTemp", 36);
+                // var tag3 = grp.CreateTagArray<float[]>("OvenTemp", 36);
 
-                //var tag_1 = grp.CreateTagArray<string[]>("Track", 300);
+                // //var tag_1 = grp.CreateTagArray<string[]>("Track", 300);
 
                 //or
                 var tag = grp.CreateTagType<string[]>("Track", TagSize.STRING, 300);

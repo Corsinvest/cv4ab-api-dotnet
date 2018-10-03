@@ -14,6 +14,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         private bool _disposed;
         private Timer _timer;
         private List<ITag> _tags = new List<ITag>();
+        private object _lockScan = new object();
 
         /// <summary>
         /// Event changed value
@@ -47,8 +48,8 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="tag"></param>
         public void AddTag(ITag tag)
         {
-            if (_tags.Contains(tag)) { throw new ArgumentException("Tag already exists in this collection!"); }
-            if (!((IList)Controller.Tags).Contains(tag)) { throw new ArgumentException("Tag not in this controller"); }
+            if (Tags.Contains(tag)) { throw new ArgumentException("Tag already exists in this collection!"); }
+            if (!Controller.Tags.Contains(tag)) { throw new ArgumentException("Tag not in this controller"); }
 
             _tags.Add(tag);
         }
@@ -59,10 +60,9 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="tag"></param>
         public void RemoveTag(ITag tag)
         {
-            if (!_tags.Contains(tag)) { throw new ArgumentException("Tag not exists in this collection!"); }
-            if (!((IList)Controller.Tags).Contains(tag)) { throw new ArgumentException("Tag not in this controller"); }
-
+            if (!Tags.Contains(tag)) { throw new ArgumentException("Tag not exists in this collection!"); }
             _tags.Remove(tag);
+            CheckDisposeTag(tag);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public Tag<TCustomType> CreateTagType<TCustomType>(string name, int size, int length = 1)
         {
             var tag = new Tag<TCustomType>(Controller, name, size, length);
-            _tags.Add(Controller.AddTagInternal(tag));
+            _tags.Add(tag);
             return tag;
         }
 
@@ -213,7 +213,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <summary>
         /// Performs write of Group of Tags
         /// </summary>
-        public IEnumerable<ResultOperation> Write() { return this.Tags.Select(a => a.Write()); }
+        public IEnumerable<ResultOperation> Write() { return this.Tags.Select(a => a.Write()).ToArray(); }
 
         /// <summary>
         /// Scan operation behavior of Tags
@@ -248,26 +248,38 @@ namespace Corsinvest.AllenBradley.PLC.Api
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            switch (ScanMode)
+            lock (_lockScan)
             {
-                case ScanMode.Read: Read(); break;
-                case ScanMode.Write: Write(); break;
-                case ScanMode.ReadAndWrite: break;
-                default: break;
-            }
+                switch (ScanMode)
+                {
+                    case ScanMode.Read: Read(); break;
+                    case ScanMode.Write: Write(); break;
+                    case ScanMode.ReadAndWrite: break;
+                    default: break;
+                }
 
-            OnTimedScan?.Invoke(this, EventArgs.Empty);
+                OnTimedScan?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         #region IDisposable Support
+        private void CheckDisposeTag(ITag tag)
+        {
+            //if not in connroller dispose
+            if (!Controller.Tags.Contains(tag)) { tag.Dispose(); }
+        }
+
         void Dispose(bool disposing)
         {
             if (!_disposed)
             {
                 if (disposing)
                 {
-                    foreach (var tag in _tags) { tag.Dispose(); }
-                    _tags.Clear();
+                    foreach (var tag in _tags.ToArray())
+                    {
+                        _tags.Remove(tag);
+                        CheckDisposeTag(tag);
+                    }
                 }
 
                 _disposed = true;

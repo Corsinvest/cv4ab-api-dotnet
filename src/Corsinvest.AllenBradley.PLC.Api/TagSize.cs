@@ -54,16 +54,16 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <value></value>
         public static IReadOnlyDictionary<Type, int> NativeTypes { get; } = new Dictionary<Type, int>
-        {
-            { typeof(int) , INT32 },
-            { typeof(uint) , UINT32 },
-            { typeof(short) , INT16 },
-            { typeof(ushort) , UINT16 },
-            { typeof(sbyte) , INT8 },
-            { typeof(byte) , UINT8 },
-            { typeof(string) , STRING },
-            { typeof(float) , FLOAT32},
-            { typeof(double) , FLOAT32},
+        { 
+            { typeof(int), INT32 },
+            { typeof(uint), UINT32 },
+            { typeof(short), INT16 },
+            { typeof(ushort), UINT16 },
+            { typeof(sbyte), INT8 },
+            { typeof(byte), UINT8 },
+            { typeof(string), STRING },
+            { typeof(float), FLOAT32 },
+            { typeof(double), FLOAT32 },
         };
 
         /// <summary>

@@ -3,12 +3,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
-<!--
-  <ItemGroup>
-    <PackageReference Include="Corsinvest.AllenBradley.PLC.Api" Version="0.0.3" />
-  </ItemGroup>
--->
-  
+
   <ItemGroup>
     <ProjectReference Include="..\Corsinvest.AllenBradley.PLC.Api\Corsinvest.AllenBradley.PLC.Api.csproj" />
   </ItemGroup>

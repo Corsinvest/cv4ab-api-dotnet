@@ -157,7 +157,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
             var timestamp = DateTime.Now;
             var watch = Stopwatch.StartNew();
             var statusCode = NativeMethod.plc_tag_read(Handle, Controller.Timeout);
-        
+
             watch.Stop();
             IsRead = true;
 

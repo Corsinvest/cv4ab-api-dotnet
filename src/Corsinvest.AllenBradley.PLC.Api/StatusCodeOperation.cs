@@ -205,7 +205,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <returns></returns>
         public static bool IsError(int code) { return (code != STATUS_PENDING && code != STATUS_OK); }
 
-                /// <summary>
+        /// <summary>
         /// Decode error.
         /// </summary>
         /// <param name="code">Error code</param>
