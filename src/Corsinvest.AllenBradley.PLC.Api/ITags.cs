@@ -23,7 +23,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// Handle creation Tag
         /// </summary>
         /// <value></value>
-        IntPtr Handle { get; }
+        int Handle { get; }
 
         /// <summary>
         /// Controller reference.
@@ -49,6 +49,12 @@ namespace Corsinvest.AllenBradley.PLC.Api
         int Length { get; }
 
         /// <summary>
+        /// Type value.
+        /// </summary>
+        /// <value></value>
+        Type TypeValue { get; }
+
+        /// <summary>
         /// Old value tag.
         /// </summary>
         /// <value></value>
@@ -65,6 +71,12 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <value></value>
         bool IsChangedValue { get; }
+
+        /// <summary>
+        /// Indicate if Tag is in read only.async Write raise exception.
+        /// </summary>
+        /// <value></value>
+        bool ReadOnly { get; set; }
 
         /// <summary>
         /// Value manager
@@ -94,6 +106,12 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// Indicates whether or not a value must be write to the PLC.
         /// </summary>
         bool IsWrite { get; }
+
+        /// <summary>
+        /// Abort any outstanding IO to the PLC. <see cref="StatusCodeOperation"/>
+        /// </summary>
+        /// <returns></returns>
+        int Abort();
 
         /// <summary>
         /// Get size tag.

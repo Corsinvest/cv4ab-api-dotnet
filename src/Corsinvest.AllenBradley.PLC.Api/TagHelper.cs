@@ -1,5 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Corsinvest.AllenBradley.PLC.Api
 {
@@ -8,7 +11,13 @@ namespace Corsinvest.AllenBradley.PLC.Api
     /// </summary>
     public static class TagHelper
     {
-        internal static TType CreateObject<TType>(int length)
+        /// <summary>
+        /// Create object from Type.
+        /// </summary>
+        /// <param name="length"></param>
+        /// <typeparam name="TType"></typeparam>
+        /// <returns></returns>
+        public static TType CreateObject<TType>(int length)
         {
             var obj = default(TType);
             var typeTType = typeof(TType);
@@ -26,9 +35,61 @@ namespace Corsinvest.AllenBradley.PLC.Api
                 obj = (TType)Activator.CreateInstance(typeTType);
             }
 
-            TagValueManager.FixStringNullToEmpty(obj);
+            FixStringNullToEmpty(obj);
 
             return obj;
+        }
+
+        /// <summary>
+        /// Fix string null to empty.
+        /// </summary>
+        /// <param name="obj"></param>
+        private static void FixStringNullToEmpty(object obj)
+        {
+            var type = obj.GetType();
+            if (type == typeof(string))
+            {
+                if (obj == null) { obj = string.Empty; }
+            }
+            else if (type.IsArray && type.GetElementType() == typeof(string))
+            {
+                var array = GetArray(obj);
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array.GetValue(i) == null) { array.SetValue(string.Empty, i); }
+                }
+            }
+            else if (type.IsClass && !type.IsAbstract)
+            {
+                foreach (var property in GetAccessableProperties(type))
+                {
+                    if (property.PropertyType == typeof(string))
+                    {
+                        if (property.GetValue(obj) == null) { property.SetValue(obj, string.Empty); }
+                    }
+                    else
+                    {
+                        FixStringNullToEmpty(property.GetValue(obj));
+                    }
+                }
+            }
+        }
+
+        internal static IEnumerable<PropertyInfo> GetAccessableProperties(Type type)
+        {
+            return type.GetProperties(BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.Public)
+                       .Where(p => p.GetSetMethod() != null);
+        }
+
+        internal static Array GetArray(object value)
+        {
+            var array = (Array)value;
+            if (array.Length <= 0)
+            {
+                throw new Exception("Cannot determine size of class, " +
+                                    "because an array is defined which has no fixed size greater than zero.");
+            }
+            return array;
         }
 
         /// <summary>
@@ -76,7 +137,6 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public static int BitsToNumber(BitArray bits)
         {
             if (bits == null) { throw new ArgumentNullException("binary"); }
-            if (bits.Length > 32) { throw new ArgumentException("must be at most 32 bits long"); }
 
             var result = new int[1];
             bits.CopyTo(result, 0);

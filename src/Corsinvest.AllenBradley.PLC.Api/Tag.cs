@@ -29,31 +29,31 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="size">The size of an element in bytes. The tag is assumed to be composed of elements of the same size.
         /// For structure tags, use the total size of the structure.</param>
         /// <param name="length">elements count: 1- single, n-array.</param>
-        /// <param name="debugLevel"></param>
-        internal Tag(Controller controller, string name, int size, int length = 1, int debugLevel = 0)
+        internal Tag(Controller controller, string name, int size, int length = 1)
         {
             Controller = controller;
             Name = name;
             Size = size;
             Length = length;
             ValueManager = new TagValueManager(this);
+            TypeValue = typeof(TType);
 
             var url = $"protocol=ab_eip&gateway={controller.IPAddress}";
             if (!string.IsNullOrEmpty(controller.Path)) { url += $"&path={controller.Path}"; }
             url += $"&cpu={controller.CPUType}&elem_size={Size}&elem_count={Length}&name={Name}";
-            if (debugLevel > 0) { url = $"&debug={debugLevel}"; }
-
-            Value = TagHelper.CreateObject<TType>(Length);
+            if (controller.DebugLevel > 0) { url += $"&debug={controller.DebugLevel}"; }
 
             //create reference
-            Handle = NativeMethod.plc_tag_create(url);
+            Handle = NativeMethod.plc_tag_create(url, controller.Timeout);
+
+            Value = TagHelper.CreateObject<TType>(Length);
         }
 
         /// <summary>
         /// Handle creation Tag
         /// </summary>
         /// <value></value>
-        public IntPtr Handle { get; }
+        public int Handle { get; }
 
         /// <summary>
         /// Controller reference.
@@ -79,6 +79,17 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public int Length { get; }
 
         /// <summary>
+        /// Type value.
+        /// </summary>
+        public Type TypeValue { get; }
+
+        /// <summary>
+        /// Indicate if Tag is in read only.async Write raise exception.
+        /// </summary>
+        /// <value></value>
+        public bool ReadOnly { get; set; } = false;
+
+        /// <summary>
         /// Value manager
         /// </summary>
         /// <value></value>
@@ -97,11 +108,17 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <value></value>
         public TType Value
         {
-            get => (TType)ValueManager.Get(_value, 0);
+            get
+            {
+                if (Controller.AutoReadValue) { Read(); }
+                return (TType)ValueManager.Get(_value, 0);
+            }
+
             set
             {
                 _value = value;
                 ValueManager.Set(value, 0);
+                if (Controller.AutoWriteValue) { Write(); }
             }
         }
 
@@ -208,6 +225,8 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <returns></returns>
         public ResultOperation Write()
         {
+            if (ReadOnly) { throw new InvalidOperationException("Tag is set read only!"); }
+
             var timestamp = DateTime.Now;
             var watch = Stopwatch.StartNew();
             var statusCode = NativeMethod.plc_tag_write(Handle, Controller.Timeout);
@@ -224,6 +243,12 @@ namespace Corsinvest.AllenBradley.PLC.Api
 
             return result;
         }
+
+        /// <summary>
+        /// Abort any outstanding IO to the PLC. <see cref="StatusCodeOperation"/>
+        /// </summary>
+        /// <returns></returns>
+        public int Abort() { return NativeMethod.plc_tag_abort(Handle); }
 
         /// <summary>
         /// Get size tag read from PLC.

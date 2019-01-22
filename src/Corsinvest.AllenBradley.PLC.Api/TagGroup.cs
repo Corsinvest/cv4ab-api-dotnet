@@ -145,7 +145,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <returns></returns>
         public Tag<TCustomType> CreateTagType<TCustomType>(string name)
         {
-            return CreateTagType<TCustomType>(name, TagSize.GetSizeFromObject(TagHelper.CreateObject<TCustomType>(1)));
+            return CreateTagType<TCustomType>(name, TagSize.GetSizeObject(TagHelper.CreateObject<TCustomType>(1)));
         }
 
         /// <summary>
@@ -173,16 +173,14 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <typeparam name="TCustomType">Type to create</typeparam>
         /// <returns></returns>
         public Tag<TCustomType> CreateTagArray<TCustomType>(string name, int length)
+            where TCustomType : IList
         {
             var type = typeof(TCustomType);
             if (!type.IsArray) { throw new ArgumentException("Is not array!"); }
+            if (length <= 0) { throw new ArgumentException("Length > 0!"); }
 
-            var obj = (Array)Activator.CreateInstance(type, length);
-            TagValueManager.FixStringNullToEmpty(obj);
-
-            return CreateTagType<TCustomType>(name,
-                                              TagSize.GetSizeFromObject(obj.GetValue(0)),
-                                              length);
+            var obj = TagHelper.CreateObject<TCustomType>(length);
+            return CreateTagType<TCustomType>(name, TagSize.GetSizeObject(obj[0]), length);
         }
         #endregion
 

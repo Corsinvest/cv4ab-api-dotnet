@@ -54,5 +54,18 @@ namespace Corsinvest.AllenBradley.PLC.Api
                                        results.Sum(a => a.ExecutionTime),
                                        results.Sum(a => a.StatusCode) != 0 ? results.Max(a => a.StatusCode) : 0);
         }
+
+        /// <summary>
+        /// Information result.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $@"Tag Name:      {Tag.Name}
+Tag Value:     {Tag.Value}
+Timestamp:     {Timestamp}
+ExecutionTime: {ExecutionTime}
+StatusCode:    {StatusCode}";
+        }
     }
 }

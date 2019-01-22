@@ -19,8 +19,6 @@ namespace Corsinvest.AllenBradley.Test
 
     public class Program
     {
-
-
         private static void PrintChange(string @event, ResultOperation result)
         {
             Console.Out.WriteLine($"{@event} {result.Timestamp} Changed: {result.Tag.Name} {result.StatusCode}");
@@ -39,11 +37,30 @@ namespace Corsinvest.AllenBradley.Test
         {
             using (var controller = new Controller("10.155.128.192", "1, 0", CPUType.LGX))
             {
+                controller.Timeout = 1000;
+             // controller.DebugLevel=3;
                 Console.Out.WriteLine("Ping " + controller.Ping(true));
                 var grp = controller.CreateGroup();
 
-                 var tagBPLC1 = grp.CreateTagInt32("TKP_PLC_B_P1");
-                 tagBPLC1.Read();
+                var tag12 = grp.CreateTagInt32("TKP_PLC_D_P1[10]");
+
+                var tagBPLC1 = grp.CreateTagInt32("TKP_PLC_B_P1");
+                tagBPLC1.Read();
+
+                var tagOvenEnabled = grp.CreateTagInt32("TKP_PLC_B_OVEN");
+                var oven = tagOvenEnabled.Read();
+                Console.Out.WriteLine(oven.Tag.Value);
+
+                System.Threading.Thread.Sleep(800);
+
+                Console.Out.WriteLine("pippo");
+
+                oven = tagOvenEnabled.Read();
+                Console.Out.WriteLine(oven.Tag.Value);
+                Console.Out.WriteLine(oven.Tag.ValueManager.GetBits()[0]);
+                Console.Out.WriteLine(oven.Tag.ValueManager.GetBitsArray()[0]);
+                Console.Out.WriteLine(oven.Tag.ValueManager.GetBitsString());
+
 
                 // var tagBPC1 = grp.CreateTagInt32("TKP_PC_B_P1");
                 // var tagBarcode = grp.CreateTagString("TKP_PLC_S_P1");
@@ -56,6 +73,8 @@ namespace Corsinvest.AllenBradley.Test
                 var tag = grp.CreateTagType<string[]>("Track", TagSize.STRING, 300);
                 tag.Changed += TagChanged;
                 var aa = tag.Read();
+
+Console.Out.WriteLine(aa);
 
                 var tag1 = grp.CreateTagType<Test12>("Test");
                 tag.Changed += TagChanged;

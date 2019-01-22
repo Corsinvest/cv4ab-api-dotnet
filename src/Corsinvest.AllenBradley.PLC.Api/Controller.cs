@@ -42,10 +42,31 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public bool FailOperationRaiseException { get; set; } = false;
 
         /// <summary>
-        /// Communication timeout
+        /// Automatic Write when using value.
+        /// </summary>
+        /// <value></value>
+        public bool AutoReadValue { get; set; } = false;
+
+        /// <summary>
+        /// Automatic Write when using value.
+        /// </summary>
+        /// <value></value>
+        public bool AutoWriteValue { get; set; } = false;
+
+        /// <summary>
+        /// Communication timeout millisec.
         /// </summary>
         /// <value></value>
         public int Timeout { get; set; } = 5000;
+
+        /// <summary>
+        /// Optional allows the selection of varying levels of debugging output. 
+        /// 1 shows only the more urgent problems. 
+        /// 5 shows almost every action within the library and will generate a very large amount of output. 
+        /// Generally 3 or 4 is most useful when debugging.
+        /// </summary>
+        /// <value></value>
+        public int DebugLevel { get; set; } = 0;
 
         /// <summary>
         /// Groups
@@ -58,6 +79,13 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<ITag> Tags { get { return _tagGroups.SelectMany(a => a.Tags).Distinct().ToList().AsReadOnly(); } }
+
+        /// <summary>
+        /// Verify if exists tag with name and return. 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public ITag TagExists(string name) { return Tags.Where(a => a.Name == name).FirstOrDefault(); }
 
         /// <summary>
         /// IP address of the gateway for this protocol. Could be the IP address of the PLC you want to access.

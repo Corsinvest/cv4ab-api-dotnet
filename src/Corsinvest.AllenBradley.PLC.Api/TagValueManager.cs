@@ -23,8 +23,6 @@ namespace Corsinvest.AllenBradley.PLC.Api
 
         internal TagValueManager(ITag tag) { _tag = tag; }
 
-        private TagValueManager() { }
-
         /// <summary>
         /// Get local value
         /// </summary>
@@ -36,25 +34,28 @@ namespace Corsinvest.AllenBradley.PLC.Api
             var type = obj.GetType();
             if (type.IsArray)
             {
-                var array = GetArray(obj);
+                var array = TagHelper.GetArray(obj);
                 for (int i = 0; i < array.Length; i++)
                 {
                     var el = array.GetValue(i);
                     array.SetValue(Get(el, offset), i);
-                    offset += TagSize.GetSizeFromObject(el);
+                    offset += TagSize.GetSizeObject(el);
                 }
                 return array;
             }
             else
             {
-                if (type == typeof(int)) { return GetInt32(offset); }
+                if (type == typeof(long)) { return GetInt64(offset); }
+                else if (type == typeof(ulong)) { return GetUInt64(offset); }
+                else if (type == typeof(int)) { return GetInt32(offset); }
                 else if (type == typeof(uint)) { return GetUInt32(offset); }
                 else if (type == typeof(short)) { return GetInt16(offset); }
                 else if (type == typeof(ushort)) { return GetUInt16(offset); }
                 else if (type == typeof(sbyte)) { return GetInt8(offset); }
                 else if (type == typeof(byte)) { return GetUInt8(offset); }
+                else if (type == typeof(float)) { return GetFloat32(offset); }
+                else if (type == typeof(double)) { return GetFloat64(offset); }
                 else if (type == typeof(string)) { return GetString(offset); }
-                else if (type == typeof(float) || type == typeof(double)) { return GetFloat32(offset); }
                 else if (type.IsClass && !type.IsAbstract) { return GetType(obj, offset); }
                 else { throw new Exception("Error data type!"); }
             }
@@ -70,22 +71,25 @@ namespace Corsinvest.AllenBradley.PLC.Api
             var type = value.GetType();
             if (type.IsArray)
             {
-                foreach (var el in GetArray(value))
+                foreach (var el in TagHelper.GetArray(value))
                 {
                     Set(el, offset);
-                    offset += TagSize.GetSizeFromObject(el);
+                    offset += TagSize.GetSizeObject(el);
                 }
             }
             else
             {
-                if (type == typeof(int)) { SetInt32((int)value, offset); }
+                if (type == typeof(long)) { SetInt64((int)value, offset); }
+                else if (type == typeof(ulong)) { SetUInt64((uint)value, offset); }
+                else if (type == typeof(int)) { SetInt32((int)value, offset); }
                 else if (type == typeof(uint)) { SetUInt32((uint)value, offset); }
                 else if (type == typeof(short)) { SetInt16((short)value, offset); }
                 else if (type == typeof(ushort)) { SetUInt16((ushort)value, offset); }
                 else if (type == typeof(sbyte)) { SetInt8((sbyte)value, offset); }
                 else if (type == typeof(byte)) { SetUInt8((byte)value, offset); }
                 else if (type == typeof(string)) { SetString((string)value, offset); }
-                else if (type == typeof(float) || type == typeof(double)) { SetFloat32((float)value, offset); }
+                else if (type == typeof(float)) { SetFloat32((float)value, offset); }
+                else if (type == typeof(double)) { SetFloat64((float)value, offset); }
                 else if (type.IsClass && !type.IsAbstract) { SetType(value, offset); }
                 else { throw new Exception("Error data type!"); }
             }
@@ -176,6 +180,35 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public void SetInt32(int value, int offset = 0) { NativeMethod.plc_tag_set_int32(_tag.Handle, offset, value); }
 
         /// <summary>
+        /// Get local value UInt64
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public ulong GetUInt64(int offset = 0) { return NativeMethod.plc_tag_get_uint64(_tag.Handle, offset); }
+
+        /// <summary>
+        /// Set local value UInt64
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="offset"></param>
+        public void SetUInt64(ulong value, int offset = 0) { NativeMethod.plc_tag_set_uint64(_tag.Handle, offset, value); }
+
+
+        /// <summary>
+        /// Get local value Int64
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public long GetInt64(int offset = 0) { return NativeMethod.plc_tag_get_int64(_tag.Handle, offset); }
+
+        /// <summary>
+        /// Set local value Int64
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="offset"></param>
+        public void SetInt64(long value, int offset = 0) { NativeMethod.plc_tag_set_int64(_tag.Handle, offset, value); }
+
+        /// <summary>
         /// Get local value Float32
         /// </summary>
         /// <param name="offset"></param>
@@ -188,6 +221,20 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="value"></param>
         /// <param name="offset"></param>
         public void SetFloat32(float value, int offset = 0) { NativeMethod.plc_tag_set_float32(_tag.Handle, offset, value); }
+
+        /// <summary>
+        /// Get local value Float
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public double GetFloat64(int offset = 0) { return NativeMethod.plc_tag_get_float64(_tag.Handle, offset); }
+
+        /// <summary>
+        /// Set local value Float
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="offset"></param>
+        public void SetFloat64(double value, int offset = 0) { NativeMethod.plc_tag_set_float64(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value String
@@ -227,10 +274,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
             }
 
             // pad with zeros
-            for (; strIdx < MAX_LENGT_STRING; strIdx++)
-            {
-                SetUInt8(0, offset + BYTE_HEADER_LENGTH_STRING + strIdx);
-            }
+            for (; strIdx < MAX_LENGT_STRING; strIdx++) { SetUInt8(0, offset + BYTE_HEADER_LENGTH_STRING + strIdx); }
         }
 
         /// <summary>
@@ -238,15 +282,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public bool GetBit(int index)
-        {
-            if (_tag.Size * 8 <= index) { throw new IndexOutOfRangeException("Index out of bound!"); }
-            if (_tag.Size == TagSize.INT32) { return (GetUInt32(0) & (1 << index)) != 0; }
-            else if (_tag.Size == TagSize.INT16) { return (GetUInt16(0) & (1 << index)) != 0; }
-            else if (_tag.Size == TagSize.INT8) { return (GetUInt8(0) & (1 << index)) != 0; }
-
-            throw new Exception("Error data type!");
-        }
+        public bool GetBit(int index) { return ((long)GetNumvericValue() & (1 << index)) != 0; }
 
         /// <summary>
         /// Set bit from index and value
@@ -256,36 +292,32 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public void SetBit(int index, bool value)
         {
             if (_tag.Size * 8 <= index) { throw new IndexOutOfRangeException("Index out of bound!"); }
-            var index2 = Math.Pow(2, index);
+            var index2 = (ulong)Math.Pow(2, index);
 
-            if (_tag.Size == TagSize.INT32)
-            {
-                var data = GetUInt32(0);
-                SetUInt32(value ? data | (uint)index2 : data ^ (uint)index2, 0);
-            }
-            else if (_tag.Size == TagSize.INT16)
-            {
-                var data = GetUInt16(0);
-                SetUInt16((ushort)(value ? data | (ushort)index2 : data ^ (ushort)index2), 0);
-            }
-            else if (_tag.Size == TagSize.INT8)
-            {
-                var data = GetUInt8(0);
-                SetUInt8((byte)(value ? data | (byte)index2 : data ^ (byte)index2), 0);
-            }
+            var currValue = GetNumvericValue();
+            var newValue = value ? (ulong)currValue | index2 : (ulong)currValue ^ index2;
+            Set(Convert.ChangeType(newValue, currValue.GetType()));
         }
 
         /// <summary>
         /// Get bit array from value
         /// </summary>
         /// <returns></returns>
-        public BitArray GetBits()
-        {
-            if (_tag.Size == TagSize.INT32) { return new BitArray(new[] { (int)GetUInt32(0) }); }
-            else if (_tag.Size == TagSize.INT16) { return new BitArray(new[] { (int)GetUInt16(0) }); }
-            else if (_tag.Size == TagSize.INT8) { return new BitArray(new[] { GetUInt8(0) }); }
+        public BitArray GetBits() { return new BitArray(new[] { (int)GetNumvericValue() }); }
 
-            throw new Exception("Error data type!");
+        /// <summary>
+        /// Get bit array from value
+        /// </summary>
+        /// <returns></returns>
+        public bool[] GetBitsArray() { return GetBits().Cast<bool>().ToArray(); }
+
+        /// <summary>
+        /// Get bit string format
+        /// </summary>
+        /// <returns></returns>
+        public string GetBitsString()
+        {
+            return new string(GetBits().Cast<bool>().Select(a => a ? '1' : '0').ToArray());
         }
 
         /// <summary>
@@ -295,8 +327,6 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public void SetBits(BitArray bits)
         {
             if (bits == null) { throw new ArgumentNullException("binary"); }
-            if (bits.Length > 32) { throw new ArgumentOutOfRangeException("must be at most 32 bits long"); }
-
             for (int i = 0; i < _tag.Size * 8; i++) { SetBit(i, bits[i]); }
         }
 
@@ -307,11 +337,11 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="offset"></param>
         public void SetType(object obj, int offset = 0)
         {
-            foreach (var property in GetAccessableProperties(obj.GetType()))
+            foreach (var property in TagHelper.GetAccessableProperties(obj.GetType()))
             {
                 var value = property.GetValue(obj);
                 Set(value, offset);
-                offset += TagSize.GetSizeFromObject(value);
+                offset += TagSize.GetSizeObject(value);
             }
         }
 
@@ -323,65 +353,35 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <returns></returns>
         public object GetType(object obj, int offset = 0)
         {
-            foreach (var property in GetAccessableProperties(obj.GetType()))
+            foreach (var property in TagHelper.GetAccessableProperties(obj.GetType()))
             {
                 var value = property.GetValue(obj);
                 property.SetValue(obj, Get(value, offset));
-                offset += TagSize.GetSizeFromObject(value);
+                offset += TagSize.GetSizeObject(value);
             }
 
             return obj;
         }
 
-        internal static IEnumerable<PropertyInfo> GetAccessableProperties(Type type)
+        private object GetNumvericValue(int offset = 0)
         {
-            return type.GetProperties(BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.Public)
-                       .Where(p => p.GetSetMethod() != null);
+            if (IsNumericInteger()) { return Get(_tag.Value, offset); }
+            else { throw new Exception("Error data type!"); }
         }
 
-        internal static Array GetArray(object value)
+        private bool IsNumericInteger()
         {
-            var array = (Array)value;
-            if (array.Length <= 0)
+            switch (Type.GetTypeCode(_tag.TypeValue))
             {
-                throw new Exception("Cannot determine size of class, " +
-                                    "because an array is defined which has no fixed size greater than zero.");
-            }
-            return array;
-        }
-
-        /// <summary>
-        /// Fix string null to empty.
-        /// </summary>
-        /// <param name="obj"></param>
-        internal static void FixStringNullToEmpty(object obj)
-        {
-            var type = obj.GetType();
-            if (type == typeof(string))
-            {
-                if (obj == null) { obj = string.Empty; }
-            }
-            else if (type.IsArray && type.GetElementType() == typeof(string))
-            {
-                var array = GetArray(obj);
-                for (int i = 0; i < array.Length; i++)
-                {
-                    if (array.GetValue(i) == null) { array.SetValue(string.Empty, i); }
-                }
-            }
-            else if (type.IsClass && !type.IsAbstract)
-            {
-                foreach (var property in GetAccessableProperties(type))
-                {
-                    if (property.PropertyType == typeof(string))
-                    {
-                        if (property.GetValue(obj) == null) { property.SetValue(obj, string.Empty); }
-                    }
-                    else
-                    {
-                        FixStringNullToEmpty(property.GetValue(obj));
-                    }
-                }
+                case TypeCode.Byte:
+                case TypeCode.SByte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64: return true;
+                default: return false;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Corsinvest.AllenBradley.PLC.Api
@@ -42,7 +43,22 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <summary>
         /// 
         /// </summary>
+        public const int INT64 = 8;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int UINT64 = INT64;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int FLOAT32 = 4;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int FLOAT64 = 8;
 
         /// <summary>
         /// 
@@ -54,7 +70,9 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <value></value>
         public static IReadOnlyDictionary<Type, int> NativeTypes { get; } = new Dictionary<Type, int>
-        { 
+        {
+            { typeof(long), INT64 },
+            { typeof(ulong), UINT64 },
             { typeof(int), INT32 },
             { typeof(uint), UINT32 },
             { typeof(short), INT16 },
@@ -63,7 +81,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
             { typeof(byte), UINT8 },
             { typeof(string), STRING },
             { typeof(float), FLOAT32 },
-            { typeof(double), FLOAT32 },
+            { typeof(double), FLOAT64 },
         };
 
         /// <summary>
@@ -71,14 +89,14 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int GetSizeFromObject(object obj)
+        public static int GetSizeObject(object obj)
         {
             var size = 0;
 
             var type = obj.GetType();
             if (type.IsArray)
             {
-                foreach (var el in TagValueManager.GetArray(obj)) { size += GetSizeFromObject(el); }
+                foreach (var el in TagHelper.GetArray(obj)) { size += GetSizeObject(el); }
             }
             else
             {
@@ -86,10 +104,9 @@ namespace Corsinvest.AllenBradley.PLC.Api
                 {
                     if (type.IsClass && !type.IsAbstract)
                     {
-                        foreach (var property in TagValueManager.GetAccessableProperties(type))
-                        {
-                            size += GetSizeFromObject(property.GetValue(obj));
-                        }
+                        size += TagHelper.GetAccessableProperties(type)
+                                         .Select(a => GetSizeObject(a.GetValue(obj)))
+                                         .Sum();
                     }
                 }
             }

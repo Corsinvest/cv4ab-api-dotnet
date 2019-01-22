@@ -18,185 +18,199 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public const int STATUS_OK = 0;
 
         /// <summary>
-        /// A null pointer was found during processing. Often this is returned when an argument is null.
+        /// The operation was aborted.
         /// </summary>
-        public const int ERR_NULL_PTR = -1;
+        public const int ERR_ERR_ABORT = -1;
 
         /// <summary>
-        /// An attempt to access a value outside of the allow limits was made. 
-        /// Usually this is in conjunction with accessing a data word in a tag.
+        /// The operation failed due to incorrect configuration.
+        /// Usually returned from a remote system.
         /// </summary>
-        public const int ERR_OUT_OF_BOUNDS = -2;
+        public const int ERR_BAD_CONFIG = -2;
 
         /// <summary>
-        /// Unable to allocate memory.
+        /// The connection failed for some reason.
+        /// This can mean that the remote PLC was power cycled, for instance.
         /// </summary>
-        public const int ERR_NO_MEM = -3;
+        public const int ERR_BAD_CONNECTION = -3;
 
         /// <summary>
-        /// Unable to add to a linked list internally.
+        /// The data received from the remote PLC was undecipherable or otherwise not able to be processed.
+        /// Can also be returned from a remote system that cannot process the data sent to it.
         /// </summary>
-        public const int ERR_LL_ADD = -4;
+        public const int ERR_BAD_DATA = -4;
 
         /// <summary>
-        /// Illegal or unknown parameter value.
+        /// Usually returned from a remote system when something addressed does not exist.
         /// </summary>
-        public const int ERR_BAD_PARAM = -5;
+        public const int ERR_BAD_DEVICE = -5;
 
         /// <summary>
-        /// Error creating a tag or internal value.
+        /// Usually returned when the library is unable to connect to a remote system.
         /// </summary>
-        public const int ERR_CREATE = -6;
+        public const int ERR_BAD_GATEWAY = -6;
 
         /// <summary>
-        /// 
+        /// A common error return when something is not correct with the tag creation attribute string.
         /// </summary>
-        public const int ERR_NOT_EMPTY = -7;
+        public const int ERR_BAD_PARAM = -7;
 
         /// <summary>
-        /// Error opening a socket or other OS-level item.
+        /// Usually returned when the remote system returned an unexpected response.
         /// </summary>
-        public const int ERR_OPEN = -8;
+        public const int ERR_BAD_REPLY = -8;
 
         /// <summary>
-        /// Error setting socket options or similar.
+        /// Usually returned by a remote system when something is not in a good state.
         /// </summary>
-        public const int ERR_SET = -9;
+        public const int ERR_BAD_STATUS = -9;
 
         /// <summary>
-        /// Error writing.
+        /// An error occurred trying to close some resource.
         /// </summary>
-        public const int ERR_WRITE = -10;
+        public const int ERR_CLOSE = -10;
 
         /// <summary>
-        /// Operation did not complete in the time allowed.
+        /// An error occurred trying to create some internal resource.
         /// </summary>
-        public const int ERR_TIMEOUT = -11;
+        public const int ERR_CREATE = -11;
 
         /// <summary>
-        /// Did not receive an ACK in the time allowed.
+        /// An error returned by a remote system when something is incorrectly duplicated 
+        /// (i.e. a duplicate connection ID).
         /// </summary>
-        public const int ERR_TIMEOUT_ACK = -12;
+        public const int ERR_DUPLICATE = -12;
 
         /// <summary>
-        /// Exceeded allowed number of retries.
+        /// An error was returned when trying to encode some data such as a tag name.
         /// </summary>
-        public const int ERR_RETRIES = -13;
+        public const int ERR_ENCODE = -13;
 
         /// <summary>
-        /// Error reading.
+        /// An internal library error.
+        /// It would be very unusual to see this.
         /// </summary>
-        public const int ERR_READ = -14;
+        public const int ERR_MUTEX_DESTROY = -14;
 
         /// <summary>
-        /// Garbled or unexpected response from remote system.
+        /// An internal library error.
+        /// It would be very unusual to see this.
         /// </summary>
-        public const int ERR_BAD_DATA = -15;
+        public const int ERR_MUTEX_INIT = -15;
 
         /// <summary>
-        /// Unable to encode part of the transaction.
+        /// An internal library error.
+        /// It would be very unusual to see this.
         /// </summary>
-        public const int ERR_ENCODE = -16;
+        public const int ERR_MUTEX_LOCK = -16;
 
         /// <summary>
-        /// Unable to decode part of the returned transaction.
+        /// An internal library error.
+        /// It would be very unusual to see this.
         /// </summary>
-        public const int ERR_DECODE = -17;
+        public const int ERR_MUTEX_UNLOCK = -17;
 
         /// <summary>
-        /// Unsupported operation (i.e. tag type does not support the operation).
+        /// Often returned from the remote system when an operation is not permitted.
         /// </summary>
-        public const int ERR_UNSUPPORTED = -18;
+        public const int ERR_NOT_ALLOWED = -18;
 
         /// <summary>
-        /// Argument too long. Usually a string or name.
+        /// Often returned from the remote system when something is not found.
         /// </summary>
-        public const int ERR_TOO_LONG = -19;
+        public const int ERR_NOT_FOUND = -19;
 
         /// <summary>
-        /// Error closing a socket or similar OS construct.
+        /// Returned when a valid operation is not implemented.
         /// </summary>
-        public const int ERR_CLOSE = -20;
+        public const int ERR_NOT_IMPLEMENTED = -20;
 
         /// <summary>
-        /// Operation not permitted.
+        /// Returned when expected data is not present.
         /// </summary>
-        public const int ERR_NOT_ALLOWED = -21;
+        public const int ERR_NO_DATA = -21;
 
         /// <summary>
-        /// Unable to set up background thread.
+        /// Similar to NOT_FOUND.
         /// </summary>
-        public const int ERR_THREAD = -22;
+        public const int ERR_NO_MATCH = -22;
 
         /// <summary>
-        /// No data received.
+        /// Returned by the library when memory allocation fails.
         /// </summary>
-        public const int ERR_NO_DATA = -23;
+        public const int ERR_NO_MEM = -23;
 
         /// <summary>
-        /// Unable to join with thread.
+        /// Returned by the remote system when some resource allocation fails.
         /// </summary>
-        public const int ERR_THREAD_JOIN = -24;
+        public const int ERR_NO_RESOURCES = -24;
 
         /// <summary>
-        /// Unable to create thread.
+        /// Usually an internal error, but can be returned when an invalid handle is used with an API call.
         /// </summary>
-        public const int ERR_THREAD_CREATE = -25;
+        public const int ERR_NULL_PTR = -25;
 
         /// <summary>
-        /// Error while attempting to destroy OS-level mutex.
+        /// Returned when an error occurs opening a resource such as a socket.
         /// </summary>
-        public const int ERR_MUTEX_DESTROY = -26;
+        public const int ERR_OPEN = -26;
 
         /// <summary>
-        /// Error while attempting to unlock mutex.
+        /// Usually returned when trying to write a value into a tag outside of the tag data bounds.
         /// </summary>
-        public const int ERR_MUTEX_UNLOCK = -27;
+        public const int ERR_OUT_OF_BOUNDS = -27;
 
         /// <summary>
-        /// Error while attempting to initialize mutex.
+        /// Returned when an error occurs during a read operation.
+        /// Usually related to socket problems.
         /// </summary>
-        public const int ERR_MUTEX_INIT = -28;
+        public const int ERR_READ = -28;
 
         /// <summary>
-        /// Error while attempting to lock mutex.
+        /// An unspecified or untranslatable remote error causes this.
         /// </summary>
-        public const int ERR_MUTEX_LOCK = -29;
+        public const int ERR_REMOTE_ERR = -29;
 
         /// <summary>
-        /// Tag operation not implemented.
+        /// An internal library error. If you see this, it is likely that everything is about to crash.
         /// </summary>
-        public const int ERR_NOT_IMPLEMENTED = -30;
+        public const int ERR_THREAD_CREATE = -30;
 
         /// <summary>
-        /// Illegal or unknown value for device type (CPU).
+        /// Another internal library error.
+        /// It is very unlikely that you will see this.
         /// </summary>
-        public const int ERR_BAD_DEVICE = -31;
+        public const int ERR_THREAD_JOIN = -31;
 
         /// <summary>
-        /// Garbled or unknown gateway IP.
+        /// An operation took too long and timed out.
         /// </summary>
-        public const int ERR_BAD_GATEWAY = -32;
+        public const int ERR_TIMEOUT = -32;
 
         /// <summary>
-        /// Error reported from remote end.
+        /// More data was returned than was expected.
         /// </summary>
-        public const int ERR_REMOTE_ERR = -33;
+        public const int ERR_TOO_LARGE = -33;
 
         /// <summary>
-        /// Operation failed due to target object not found.
+        /// Insufficient data was returned from the remote system.
         /// </summary>
-        public const int ERR_NOT_FOUND = -34;
+        public const int ERR_TOO_SMALL = -34;
 
         /// <summary>
-        /// Operation aborted.
+        /// The operation is not supported on the remote system.
         /// </summary>
-        public const int ERR_ABORT = -35;
+        public const int ERR_UNSUPPORTED = -35;
 
         /// <summary>
-        /// (Windows only) Error initializing/terminating use of Windows sockets.
+        /// A Winsock-specific error occurred (only on Windows).
         /// </summary>
         public const int ERR_WINSOCK = -36;
+
+        /// <summary>
+        /// An error occurred trying to write, usually to a socket.
+        /// </summary>
+        public const int ERR_WRITE = -37;
 
         /// <summary>
         /// Check code in error
