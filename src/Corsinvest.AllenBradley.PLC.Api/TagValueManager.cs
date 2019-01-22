@@ -282,7 +282,10 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public bool GetBit(int index) { return ((long)GetNumvericValue() & (1 << index)) != 0; }
+        public bool GetBit(int index)
+        {
+            return (Convert.ToInt64(GetNumvericValue()) & (1 << index)) != 0;
+        }
 
         /// <summary>
         /// Set bit from index and value
