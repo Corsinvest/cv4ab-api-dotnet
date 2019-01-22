@@ -47,7 +47,7 @@ The client is wapper of LibTagPLC library.
 
 - Open source
 - Controller implementation
-- Native Tag type INT8, UINT8, INT16, UINT16, INT32, UINT32, FLOAT32, STRING
+- Native Tag type INT8, UINT8, INT16, UINT16, INT32, UINT32, INT64, UINT64, FLOAT32, FLOAT64, STRING
 - Custom class definition structure
 - Manupulation local value variable
 - Read and Write with advanced result
@@ -63,6 +63,8 @@ The client is wapper of LibTagPLC library.
 - Enable "Fail Operation Raise Exception"
 - Value Manager directry modify
 - Bit manipulation
+- Debug level
+- Auto Read/Write when using value (default: false)
 
 ## Usage
 
@@ -117,6 +119,7 @@ static void TagChanged(ResultOperation result)
 {
   PrintChange("TagChanged", result);
 }
+
 static void GroupChanged(IEnumerable<ResultOperation> results)
 {
   foreach (var result in results) PrintChange("GroupTagChanged", result);
@@ -127,17 +130,20 @@ static void GroupChanged(IEnumerable<ResultOperation> results)
 
 Are possible to create any tag:
 
-- [CreateTagInt32](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L81)
-- [CreateTagUInt32](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L89)
-- [CreateTagInt16](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L97)
-- [CreateTagUInt16](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L105)
-- [CreateTagInt8](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L113)
-- [CreateTagUInt8](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L121)
-- [CreateTagString](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L129)
-- [CreateTagFloat32](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L137)
-- [CreateTagType specify type and name only, and automatcly calculated size from property or array](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L146)
-- [CreateTagType specify name,size,length for array](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L163)
-- [CreateTagArray](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagGroup.cs#L178)
+- CreateTagInt64
+- CreateTagUInt64
+- CreateTagInt32
+- CreateTagUInt32
+- CreateTagInt16
+- CreateTagUInt16
+- CreateTagInt8
+- CreateTagUInt8
+- CreateTagString
+- CreateTagFloat32
+- CreateTagFloat64
+- CreateTagType specify type and name only, and automatcly calculated size from property or array
+- CreateTagType specify name,size,length for array
+- CreateTagArray
 
 Size are specified in [TagSize](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagSize.cs).
 

@@ -73,6 +73,22 @@ namespace Corsinvest.AllenBradley.PLC.Api
 
         #region Create Tags
         /// <summary>
+        /// Create Tag Int64
+        /// </summary>
+        /// <param name="name">The textual name of the tag to access. The name is anything allowed by the protocol.
+        /// E.g. myDataStruct.rotationTimer.ACC, myDINTArray[42] etc.</param>
+        /// <returns></returns>
+        public Tag<long> CreateTagInt64(string name) { return CreateTagType<long>(name); }
+
+        /// <summary>
+        /// Create Tag UInt64
+        /// </summary>
+        /// <param name="name">The textual name of the tag to access. The name is anything allowed by the protocol.
+        /// E.g. myDataStruct.rotationTimer.ACC, myDINTArray[42] etc.</param>
+        /// <returns></returns>
+        public Tag<ulong> CreateTagUInt64(string name) { return CreateTagType<ulong>(name); }
+
+        /// <summary>
         /// Create Tag Int32
         /// </summary>
         /// <param name="name">The textual name of the tag to access. The name is anything allowed by the protocol.
@@ -135,6 +151,14 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// E.g. myDataStruct.rotationTimer.ACC, myDINTArray[42] etc.</param>
         /// <returns></returns>
         public Tag<float> CreateTagFloat32(string name) { return CreateTagType<float>(name); }
+
+        /// <summary>
+        /// Create Tag Float64
+        /// </summary>
+        /// <param name="name">The textual name of the tag to access. The name is anything allowed by the protocol.
+        /// E.g. myDataStruct.rotationTimer.ACC, myDINTArray[42] etc.</param>
+        /// <returns></returns>
+        public Tag<double> CreateTagFloat64(string name) { return CreateTagType<double>(name); }
 
         /// <summary>
         /// Create Tag custom Type Class
