@@ -282,10 +282,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public bool GetBit(int index)
-        {
-            return (Convert.ToInt64(GetNumvericValue()) & (1 << index)) != 0;
-        }
+        public bool GetBit(int index) { return (Convert.ToInt64(GetNumvericValue()) & (1 << index)) != 0; }
 
         /// <summary>
         /// Set bit from index and value
@@ -298,7 +295,8 @@ namespace Corsinvest.AllenBradley.PLC.Api
             var index2 = (ulong)Math.Pow(2, index);
 
             var currValue = GetNumvericValue();
-            var newValue = value ? (ulong)currValue | index2 : (ulong)currValue ^ index2;
+            var uCurrValue = Convert.ToUInt64(currValue);
+            var newValue = value ? uCurrValue | index2 : uCurrValue ^ index2;
             Set(Convert.ChangeType(newValue, currValue.GetType()));
         }
 
@@ -306,7 +304,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// Get bit array from value
         /// </summary>
         /// <returns></returns>
-        public BitArray GetBits() { return new BitArray(new[] { (int)GetNumvericValue() }); }
+        public BitArray GetBits() { return new BitArray(new[] { Convert.ToInt32(GetNumvericValue()) }); }
 
         /// <summary>
         /// Get bit array from value

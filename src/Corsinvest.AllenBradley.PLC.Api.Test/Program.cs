@@ -38,9 +38,13 @@ namespace Corsinvest.AllenBradley.Test
             using (var controller = new Controller("10.155.128.192", "1, 0", CPUType.LGX))
             {
                 controller.Timeout = 1000;
-             // controller.DebugLevel=3;
+                // controller.DebugLevel=3;
                 Console.Out.WriteLine("Ping " + controller.Ping(true));
                 var grp = controller.CreateGroup();
+
+                var tagp2 = grp.CreateTagInt32("TKP_PC_B_P2");
+tagp2.Read();
+tagp2.ValueManager.SetBit(1,true);
 
                 var tag12 = grp.CreateTagInt32("TKP_PLC_D_P1[10]");
 
@@ -74,7 +78,7 @@ namespace Corsinvest.AllenBradley.Test
                 tag.Changed += TagChanged;
                 var aa = tag.Read();
 
-Console.Out.WriteLine(aa);
+                Console.Out.WriteLine(aa);
 
                 var tag1 = grp.CreateTagType<Test12>("Test");
                 tag.Changed += TagChanged;
