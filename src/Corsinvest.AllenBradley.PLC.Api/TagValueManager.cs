@@ -292,12 +292,13 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public void SetBit(int index, bool value)
         {
             if (_tag.Size * 8 <= index) { throw new IndexOutOfRangeException("Index out of bound!"); }
-            var index2 = (ulong)Math.Pow(2, index);
 
-            var currValue = GetNumvericValue();
-            var uCurrValue = Convert.ToUInt64(currValue);
-            var newValue = value ? uCurrValue | index2 : uCurrValue ^ index2;
-            Set(Convert.ChangeType(newValue, currValue.GetType()));
+            var bits = GetBits();
+            bits.Set(index, value);
+            var data = new int[1];
+            bits.CopyTo(data, 0);
+
+            Set(data[0]);
         }
 
         /// <summary>
