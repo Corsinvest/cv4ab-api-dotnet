@@ -1,6 +1,6 @@
 # Corsinvest.AllenBradley.PLC.Api
 
-[![License](https://img.shields.io/github/license/Corsinvest/cv4ab-api-dotnet.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![License](https://img.shields.io/github/license/Corsinvest/cv4ab-api-dotnet.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) [![AppVeyor branch](https://img.shields.io/appveyor/ci/franklupo/cv4ab-api-dotnet/master.svg)](https://ci.appveyor.com/project/franklupo/cv4ab-api-dotnet) [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=PPM9JHLQLRV2S&item_name=Open+Source+Project&currency_code=EUR&source=url)
 
 Comunication for Allen-Bradley Rockwell PLC in .NET Core
 
@@ -15,8 +15,6 @@ Comunication for Allen-Bradley Rockwell PLC in .NET Core
 Special thanks to Mario Averoldi for technical support <mario.averoldi@mavert.it>.
 
 [Corsinvest Srl](https://www.corsinvest.it)
-
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/franklupo/cv4ab-api-dotnet/master.svg)](https://ci.appveyor.com/project/franklupo/cv4ab-api-dotnet)
 
 ```text
    ______                _                      __
@@ -161,3 +159,6 @@ public class TestArray
 ```
 
 Custom type are class. The properties are read sequentially.
+
+
+[![paypal](https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=PPM9JHLQLRV2S&item_name=Open+Source+Project&currency_code=EUR&source=url)
