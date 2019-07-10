@@ -42,6 +42,7 @@ namespace Corsinvest.AllenBradley.Test
                 Console.Out.WriteLine("Ping " + controller.Ping(true));
                 var grp = controller.CreateGroup();
 
+                var tagp12 = grp.CreateTagInt64("TKP_PC_B_P64");
                 var tagp2 = grp.CreateTagInt32("TKP_PC_B_P2");
 tagp2.Read();
 tagp2.ValueManager.SetBit(1,true);

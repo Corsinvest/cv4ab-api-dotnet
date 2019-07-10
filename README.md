@@ -1,6 +1,6 @@
 # Corsinvest.AllenBradley.PLC.Api
 
-[![License](https://img.shields.io/github/license/Corsinvest/cv4ab-api-dotnet.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) [![AppVeyor branch](https://img.shields.io/appveyor/ci/franklupo/cv4ab-api-dotnet/master.svg)](https://ci.appveyor.com/project/franklupo/cv4ab-api-dotnet) [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=PPM9JHLQLRV2S&item_name=Open+Source+Project&currency_code=EUR&source=url)
+[![License](https://img.shields.io/github/license/Corsinvest/cv4ab-api-dotnet.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) ![Nuget](https://img.shields.io/nuget/v/Corsinvest.AllenBradley.PLC.Api.svg) [![AppVeyor branch](https://img.shields.io/appveyor/ci/franklupo/cv4ab-api-dotnet/master.svg)](https://ci.appveyor.com/project/franklupo/cv4ab-api-dotnet) [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=PPM9JHLQLRV2S&item_name=Open+Source+Project&currency_code=EUR&source=url)
 
 Comunication for Allen-Bradley Rockwell PLC in .NET Core
 
@@ -39,7 +39,7 @@ Be careful!
 
 ## General
 
-The client is wapper of LibTagPLC library.
+The client is wapper of [LibTagPLC](https://github.com/kyle-github/libplctag) library.
 
 ## Main features
 
@@ -159,6 +159,5 @@ public class TestArray
 ```
 
 Custom type are class. The properties are read sequentially.
-
 
 [![paypal](https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=PPM9JHLQLRV2S&item_name=Open+Source+Project&currency_code=EUR&source=url)

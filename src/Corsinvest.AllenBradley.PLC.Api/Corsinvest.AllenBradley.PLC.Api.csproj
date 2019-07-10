@@ -2,14 +2,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>0.1.5</Version>
+    <Version>0.1.6</Version>
     <Company>Corsinvest Srl</Company>
     <Authors>Daniele Corsini</Authors>
     <Copyright>Corsinvest Srl</Copyright>
     <Product>Comunication for Rockwell Allen-Bradley PLC</Product>
     <AssemblyTitle>Comunication for Rockwell Allen-Bradley PLC in .NET Core</AssemblyTitle>
     <Description>Comunication for Rockwell Allen-Bradley PLC in .NET Core</Description>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/Corsinvest/cv4ab-api-dotnet/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Corsinvest/cv4ab-api-dotnet</PackageProjectUrl>
     <PackageTags>Rockwell;Allen-Bradley;Api,PLC;Corsinvest;LibTagPlc</PackageTags>
     <PackageIconUrl>https://www.corsinvest.it/wp-content/uploads/2016/08/Corsinvest.ico</PackageIconUrl>

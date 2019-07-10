@@ -79,8 +79,8 @@ namespace Corsinvest.AllenBradley.PLC.Api
             }
             else
             {
-                if (type == typeof(long)) { SetInt64((int)value, offset); }
-                else if (type == typeof(ulong)) { SetUInt64((uint)value, offset); }
+                if (type == typeof(long)) { SetInt64((long)value, offset); }
+                else if (type == typeof(ulong)) { SetUInt64((ulong)value, offset); }
                 else if (type == typeof(int)) { SetInt32((int)value, offset); }
                 else if (type == typeof(uint)) { SetUInt32((uint)value, offset); }
                 else if (type == typeof(short)) { SetInt16((short)value, offset); }
