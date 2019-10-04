@@ -10,7 +10,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
     /// </summary>
     public class Controller : IDisposable
     {
-        private List<TagGroup> _tagGroups = new List<TagGroup>();
+        private readonly List<TagGroup> _tagGroups = new List<TagGroup>();
 
         private bool _disposed;
 
@@ -27,7 +27,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         {
             if (cpuType == CPUType.LGX && string.IsNullOrEmpty(path))
             {
-                throw new ArgumentException("PortType and Slot must be specified for Controllogix / Compactlogix processors");
+                throw new ArgumentException("PortType and Slot must be specified for ControlLogix / CompactLogix processors");
             }
 
             IPAddress = ipAddress;
@@ -114,12 +114,12 @@ namespace Corsinvest.AllenBradley.PLC.Api
                 var reply = ping.Send(IPAddress);
                 if (echo)
                 {
-                    Console.WriteLine($"Address: {reply.Address}");
-                    Console.WriteLine($"RoundTrip time: {reply.RoundtripTime}");
-                    Console.WriteLine($"Time to live: {reply.Options?.Ttl}");
-                    Console.WriteLine($"Don't fragment: {reply.Options?.DontFragment}");
-                    Console.WriteLine($"Buffer size: {reply.Buffer?.Length}");
-                    Console.WriteLine($"Status: {reply.Status}");
+                    Console.Out.WriteLine($"Address: {reply.Address}");
+                    Console.Out.WriteLine($"RoundTrip time: {reply.RoundtripTime}");
+                    Console.Out.WriteLine($"Time to live: {reply.Options?.Ttl}");
+                    Console.Out.WriteLine($"Don't fragment: {reply.Options?.DontFragment}");
+                    Console.Out.WriteLine($"Buffer size: {reply.Buffer?.Length}");
+                    Console.Out.WriteLine($"Status: {reply.Status}");
                 }
 
                 return reply.Status == IPStatus.Success;

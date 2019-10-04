@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace Corsinvest.AllenBradley.PLC.Api
+﻿namespace Corsinvest.AllenBradley.PLC.Api
 {
     /// <summary>
     /// Status code operation.
@@ -224,6 +222,6 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <param name="code">Error code</param>
         /// <returns></returns>
-        public static string DecodeError(int code) { return Marshal.PtrToStringAnsi(NativeMethod.plc_tag_decode_error(code)); }
+        public static string DecodeError(int code) { return NativeLibrary.DecodeError(code); }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Corsinvest.AllenBradley.PLC.Api
 {
@@ -71,17 +70,17 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <value></value>
         public static IReadOnlyDictionary<Type, int> NativeTypes { get; } = new Dictionary<Type, int>
         {
-            { typeof(long), INT64 },
-            { typeof(ulong), UINT64 },
-            { typeof(int), INT32 },
-            { typeof(uint), UINT32 },
-            { typeof(short), INT16 },
-            { typeof(ushort), UINT16 },
+            { typeof(Int64), INT64 },
+            { typeof(UInt64), UINT64 },
+            { typeof(Int32), INT32 },
+            { typeof(UInt32), UINT32 },
+            { typeof(Int16), INT16 },
+            { typeof(UInt16), UINT16 },
             { typeof(sbyte), INT8 },
             { typeof(byte), UINT8 },
-            { typeof(string), STRING },
             { typeof(float), FLOAT32 },
             { typeof(double), FLOAT64 },
+            { typeof(string), STRING },
         };
 
         /// <summary>

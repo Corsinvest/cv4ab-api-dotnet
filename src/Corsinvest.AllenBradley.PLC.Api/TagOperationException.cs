@@ -9,11 +9,11 @@ namespace Corsinvest.AllenBradley.PLC.Api
     public class TagOperationException : Exception
     {
         /// <summary>
-        /// Costrucor
+        /// Constructor
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        public TagOperationException(ResultOperation result) : base("Error execut operation!")
+        public TagOperationException(ResultOperation result) : base("Error execute operation!")
         {
             Result = result;
         }

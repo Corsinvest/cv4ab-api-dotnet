@@ -44,7 +44,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
             if (controller.DebugLevel > 0) { url += $"&debug={controller.DebugLevel}"; }
 
             //create reference
-            Handle = NativeMethod.plc_tag_create(url, controller.Timeout);
+            Handle = NativeLibrary.plc_tag_create(url, controller.Timeout);
 
             Value = TagHelper.CreateObject<TType>(Length);
         }
@@ -53,7 +53,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// Handle creation Tag
         /// </summary>
         /// <value></value>
-        public int Handle { get; }
+        public Int32 Handle { get; }
 
         /// <summary>
         /// Controller reference.
@@ -111,7 +111,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
             get
             {
                 if (Controller.AutoReadValue) { Read(); }
-                return (TType)ValueManager.Get(_value, 0);
+                return  (TType)ValueManager.Get(_value, 0);
             }
 
             set
@@ -163,7 +163,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         }
 
         /// <summary>
-        /// Peforms read of Tag
+        /// Performs read of Tag
         /// </summary>
         /// <returns></returns>
         public ResultOperation Read()
@@ -173,7 +173,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
 
             var timestamp = DateTime.Now;
             var watch = Stopwatch.StartNew();
-            var statusCode = NativeMethod.plc_tag_read(Handle, Controller.Timeout);
+            var statusCode = NativeLibrary.plc_tag_read(Handle, Controller.Timeout);
 
             watch.Stop();
             IsRead = true;
@@ -220,7 +220,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         }
 
         /// <summary>
-        /// Peforms write of Tag 
+        /// Performs write of Tag 
         /// </summary>
         /// <returns></returns>
         public ResultOperation Write()
@@ -229,7 +229,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
 
             var timestamp = DateTime.Now;
             var watch = Stopwatch.StartNew();
-            var statusCode = NativeMethod.plc_tag_write(Handle, Controller.Timeout);
+            var statusCode = NativeLibrary.plc_tag_write(Handle, Controller.Timeout);
             watch.Stop();
             IsWrite = true;
 
@@ -248,38 +248,38 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// Abort any outstanding IO to the PLC. <see cref="StatusCodeOperation"/>
         /// </summary>
         /// <returns></returns>
-        public int Abort() { return NativeMethod.plc_tag_abort(Handle); }
+        public int Abort() { return NativeLibrary.plc_tag_abort(Handle); }
 
         /// <summary>
         /// Get size tag read from PLC.
         /// </summary>
         /// <returns></returns>
-        public int GetSize() { return NativeMethod.plc_tag_get_size(Handle); }
+        public int GetSize() { return NativeLibrary.plc_tag_get_size(Handle); }
 
         /// <summary>
         /// Get status operation. <see cref="StatusCodeOperation"/>
         /// </summary>
         /// <returns></returns>
-        public int GetStatus() { return NativeMethod.plc_tag_status(Handle); }
+        public int GetStatus() { return NativeLibrary.plc_tag_status(Handle); }
 
         /// <summary>
         /// Lock for multitrading. <see cref="StatusCodeOperation"/>
         /// </summary>
         /// <returns></returns>
-        public int Lock() { return NativeMethod.plc_tag_lock(Handle); }
+        public int Lock() { return NativeLibrary.plc_tag_lock(Handle); }
 
         /// <summary>
         /// Unlock for multitrading <see cref="StatusCodeOperation"/>
         /// </summary>
         /// <returns></returns>
-        public int Unlock() { return NativeMethod.plc_tag_unlock(Handle); }
+        public int Unlock() { return NativeLibrary.plc_tag_unlock(Handle); }
 
         #region IDisposable Support
         void Dispose(bool disposing)
         {
             if (!_disposed)
             {
-                if (disposing) { NativeMethod.plc_tag_destroy(Handle); }
+                if (disposing) { NativeLibrary.plc_tag_destroy(Handle); }
                 _disposed = true;
             }
         }

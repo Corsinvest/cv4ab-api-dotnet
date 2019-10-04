@@ -39,7 +39,7 @@ Be careful!
 
 ## General
 
-The client is wapper of [LibTagPLC](https://github.com/kyle-github/libplctag) library.
+The client is wrapper of [LibTagPLC](https://github.com/kyle-github/libplctag) library.
 
 ## Main features
 
@@ -47,7 +47,7 @@ The client is wapper of [LibTagPLC](https://github.com/kyle-github/libplctag) li
 - Controller implementation
 - Native Tag type INT8, UINT8, INT16, UINT16, INT32, UINT32, INT64, UINT64, FLOAT32, FLOAT64, STRING
 - Custom class definition structure
-- Manupulation local value variable
+- Manipulation local value variable
 - Read and Write with advanced result
   - Time execution
   - Status code
@@ -58,11 +58,12 @@ The client is wapper of [LibTagPLC](https://github.com/kyle-github/libplctag) li
 - Decode Error **StatusCodeOperation.DecodeError()**
 - Group interval read/write
 - Event result Tag and TagGroup with result changed value
-- Enable "Fail Operation Raise Exception"
-- Value Manager directry modify
+- Enable "Fail Operation Raise Exception" (default: false)
+- Value Manager directly modify
 - Bit manipulation
 - Debug level
 - Auto Read/Write when using value (default: false)
+- Native support 32/64 bit for Windows/Linux
 
 ## Usage
 
@@ -139,7 +140,7 @@ Are possible to create any tag:
 - CreateTagString
 - CreateTagFloat32
 - CreateTagFloat64
-- CreateTagType specify type and name only, and automatcly calculated size from property or array
+- CreateTagType specify type and name only, and automatically calculated size from property or array
 - CreateTagType specify name,size,length for array
 - CreateTagArray
 

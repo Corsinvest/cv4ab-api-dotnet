@@ -12,8 +12,8 @@ namespace Corsinvest.AllenBradley.PLC.Api
     public class TagGroup : IDisposable
     {
         private bool _disposed;
-        private Timer _timer;
-        private List<ITag> _tags = new List<ITag>();
+        private readonly Timer _timer;
+        private readonly List<ITag> _tags = new List<ITag>();
         private object _lockScan = new object();
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="name">The textual name of the tag to access. The name is anything allowed by the protocol.
         /// E.g. myDataStruct.rotationTimer.ACC, myDINTArray[42] etc.</param>
         /// <returns></returns>
-        public Tag<long> CreateTagInt64(string name) { return CreateTagType<long>(name); }
+        public Tag<Int64> CreateTagInt64(string name) { return CreateTagType<Int64>(name); }
 
         /// <summary>
         /// Create Tag UInt64
@@ -86,7 +86,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// <param name="name">The textual name of the tag to access. The name is anything allowed by the protocol.
         /// E.g. myDataStruct.rotationTimer.ACC, myDINTArray[42] etc.</param>
         /// <returns></returns>
-        public Tag<ulong> CreateTagUInt64(string name) { return CreateTagType<ulong>(name); }
+        public Tag<UInt64> CreateTagUInt64(string name) { return CreateTagType<UInt64>(name); }
 
         /// <summary>
         /// Create Tag Int32

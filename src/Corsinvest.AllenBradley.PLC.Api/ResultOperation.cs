@@ -43,7 +43,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         public int StatusCode { get; }
 
         /// <summary>
-        /// Reduce multimple result to one.
+        /// Reduce multiple result to one.
         /// </summary>
         /// <param name="results"></param>
         /// <returns></returns>

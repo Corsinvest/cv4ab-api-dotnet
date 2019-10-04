@@ -23,7 +23,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// Handle creation Tag
         /// </summary>
         /// <value></value>
-        int Handle { get; }
+        Int32 Handle { get; }
 
         /// <summary>
         /// Controller reference.
@@ -85,7 +85,7 @@ namespace Corsinvest.AllenBradley.PLC.Api
         TagValueManager ValueManager { get; }
 
         /// <summary>
-        /// Peforms read of Tag 
+        /// Performs read of Tag 
         /// </summary>
         /// <returns></returns>
         ResultOperation Read();
