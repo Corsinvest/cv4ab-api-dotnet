@@ -4,13 +4,13 @@
 
 Comunication for Allen-Bradley Rockwell PLC in .NET Core
 
-[LibTagPLC library C++ Api](https://github.com/kyle-github/libplctag)
+[LibPLCTag library C++ Api](https://github.com/kyle-github/libplctag)
 
 [Based on libplctag-csharp](https://github.com/mesta1/libplctag-csharp)
 
 [Nuget](https://www.nuget.org/packages/Corsinvest.AllenBradley.PLC.Api)
 
-[Special tanks for testing Mavert](https://www.mavert.it)
+[Special thanks for testing Mavert](https://www.mavert.it)
 
 Special thanks to Mario Averoldi for technical support <mario.averoldi@mavert.it>.
 
@@ -39,7 +39,7 @@ Be careful!
 
 ## General
 
-The client is wrapper of [LibTagPLC](https://github.com/kyle-github/libplctag) library.
+The client is wrapper of [LibPLCTag](https://github.com/kyle-github/libplctag) library.
 
 ## Main features
 
@@ -127,7 +127,7 @@ static void GroupChanged(IEnumerable<ResultOperation> results)
 
 ## Create Tag
 
-Are possible to create any tag:
+It is possible to create a tag of any type:
 
 - CreateTagInt64
 - CreateTagUInt64
@@ -144,9 +144,9 @@ Are possible to create any tag:
 - CreateTagType specify name,size,length for array
 - CreateTagArray
 
-Size are specified in [TagSize](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagSize.cs).
+Sizes are specified in [TagSize](https://github.com/Corsinvest/cv4ab-api-dotnet/blob/master/src/Corsinvest.AllenBradley.PLC.Api/TagSize.cs).
 
-For array specify size in definition.
+For arrays specify the size in the definition.
 
 Example:
 
@@ -159,6 +159,6 @@ public class TestArray
 }
 ```
 
-Custom type are class. The properties are read sequentially.
+Custom types are classes. The properties are read sequentially.
 
 [![paypal](https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=PPM9JHLQLRV2S&item_name=Open+Source+Project&currency_code=EUR&source=url)
