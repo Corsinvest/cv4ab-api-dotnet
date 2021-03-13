@@ -1,3 +1,4 @@
+using libplctag.NativeImport;
 using System;
 using System.Collections;
 using System.Linq;
@@ -98,98 +99,98 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public UInt16 GetUInt16(int offset = 0) { return NativeLibrary.plc_tag_get_uint16(_tag.Handle, offset); }
+        public UInt16 GetUInt16(int offset = 0) { return plctag.plc_tag_get_uint16(_tag.Handle, offset); }
 
         /// <summary>
         /// Set local value UInt16
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetUInt16(UInt16 value, int offset = 0) { NativeLibrary.plc_tag_set_uint16(_tag.Handle, offset, value); }
+        public void SetUInt16(UInt16 value, int offset = 0) { plctag.plc_tag_set_uint16(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value Int16
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public Int16 GetInt16(int offset = 0) { return NativeLibrary.plc_tag_get_int16(_tag.Handle, offset); }
+        public Int16 GetInt16(int offset = 0) { return plctag.plc_tag_get_int16(_tag.Handle, offset); }
 
         /// <summary>
         /// Set local value Int16
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetInt16(Int16 value, int offset = 0) { NativeLibrary.plc_tag_set_int16(_tag.Handle, offset, value); }
+        public void SetInt16(Int16 value, int offset = 0) { plctag.plc_tag_set_int16(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value UInt8
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public byte GetUInt8(int offset = 0) { return NativeLibrary.plc_tag_get_uint8(_tag.Handle, offset); }
+        public byte GetUInt8(int offset = 0) { return plctag.plc_tag_get_uint8(_tag.Handle, offset); }
 
         /// <summary>
         /// Set local value UInt8
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetUInt8(byte value, int offset = 0) { NativeLibrary.plc_tag_set_uint8(_tag.Handle, offset, value); }
+        public void SetUInt8(byte value, int offset = 0) { plctag.plc_tag_set_uint8(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value Int8
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public sbyte GetInt8(int offset = 0) { return NativeLibrary.plc_tag_get_int8(_tag.Handle, offset); }
+        public sbyte GetInt8(int offset = 0) { return plctag.plc_tag_get_int8(_tag.Handle, offset); }
 
         /// <summary>
         /// Set local value Int8
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetInt8(sbyte value, int offset = 0) { NativeLibrary.plc_tag_set_int8(_tag.Handle, offset, value); }
+        public void SetInt8(sbyte value, int offset = 0) { plctag.plc_tag_set_int8(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value UInt32
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public UInt32 GetUInt32(int offset = 0) { return NativeLibrary.plc_tag_get_uint32(_tag.Handle, offset); }
+        public UInt32 GetUInt32(int offset = 0) { return plctag.plc_tag_get_uint32(_tag.Handle, offset); }
 
         /// <summary>
         /// Set local value UInt32
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetUInt32(UInt32 value, int offset = 0) { NativeLibrary.plc_tag_set_uint32(_tag.Handle, offset, value); }
+        public void SetUInt32(UInt32 value, int offset = 0) { plctag.plc_tag_set_uint32(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value Int32
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public Int32 GetInt32(int offset = 0) { return NativeLibrary.plc_tag_get_int32(_tag.Handle, offset); }
+        public Int32 GetInt32(int offset = 0) { return plctag.plc_tag_get_int32(_tag.Handle, offset); }
  
         /// <summary>
         /// Set local value Int32
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetInt32(Int32 value, int offset = 0) { NativeLibrary.plc_tag_set_int32(_tag.Handle, offset, value); }
+        public void SetInt32(Int32 value, int offset = 0) { plctag.plc_tag_set_int32(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value UInt64
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public UInt64 GetUInt64(int offset = 0) { return NativeLibrary.plc_tag_get_uint64(_tag.Handle, offset); }
+        public UInt64 GetUInt64(int offset = 0) { return plctag.plc_tag_get_uint64(_tag.Handle, offset); }
 
         /// <summary>
         /// Set local value UInt64
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetUInt64(UInt64 value, int offset = 0) { NativeLibrary.plc_tag_set_uint64(_tag.Handle, offset, value); }
+        public void SetUInt64(UInt64 value, int offset = 0) { plctag.plc_tag_set_uint64(_tag.Handle, offset, value); }
 
 
         /// <summary>
@@ -197,42 +198,42 @@ namespace Corsinvest.AllenBradley.PLC.Api
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public Int64 GetInt64(int offset = 0) { return NativeLibrary.plc_tag_get_int64(_tag.Handle, offset); }
+        public Int64 GetInt64(int offset = 0) { return plctag.plc_tag_get_int64(_tag.Handle, offset); }
 
         /// <summary>
         /// Set local value Int64
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetInt64(Int64 value, int offset = 0) { NativeLibrary.plc_tag_set_int64(_tag.Handle, offset, value); }
+        public void SetInt64(Int64 value, int offset = 0) { plctag.plc_tag_set_int64(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value Float32
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public float GetFloat32(int offset = 0) { return NativeLibrary.plc_tag_get_float32(_tag.Handle, offset); }
+        public float GetFloat32(int offset = 0) { return plctag.plc_tag_get_float32(_tag.Handle, offset); }
 
         /// <summary>
         /// Set local value Float32
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetFloat32(float value, int offset = 0) { NativeLibrary.plc_tag_set_float32(_tag.Handle, offset, value); }
+        public void SetFloat32(float value, int offset = 0) { plctag.plc_tag_set_float32(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value Float
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public double GetFloat64(int offset = 0) { return NativeLibrary.plc_tag_get_float64(_tag.Handle, offset); }
+        public double GetFloat64(int offset = 0) { return plctag.plc_tag_get_float64(_tag.Handle, offset); }
 
         /// <summary>
         /// Set local value Float
         /// </summary>
         /// <param name="value"></param>
         /// <param name="offset"></param>
-        public void SetFloat64(double value, int offset = 0) { NativeLibrary.plc_tag_set_float64(_tag.Handle, offset, value); }
+        public void SetFloat64(double value, int offset = 0) { plctag.plc_tag_set_float64(_tag.Handle, offset, value); }
 
         /// <summary>
         /// Get local value String
