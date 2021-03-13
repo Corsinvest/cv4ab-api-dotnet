@@ -30,5 +30,9 @@
 		<Content CopyToOutputDirectory="PreserveNewest" Include="runtimes/linux-x64/native/plctag.so" Link="plctag.so" Pack="true" PackagePath="runtimes/linux-x64/native/plctag.so" />
 		<Content CopyToOutputDirectory="PreserveNewest" Include="runtimes/linux-x86/native/plctag.so" Link="plctag.so" Pack="true" PackagePath="runtimes/linux-x86/native/plctag.so" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="libplctag.NativeImport" Version="1.0.12" />
+  </ItemGroup>
 </Project>
 

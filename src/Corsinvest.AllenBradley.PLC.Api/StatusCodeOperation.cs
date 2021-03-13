@@ -1,4 +1,6 @@
-﻿namespace Corsinvest.AllenBradley.PLC.Api
+﻿using libplctag.NativeImport;
+
+namespace Corsinvest.AllenBradley.PLC.Api
 {
     /// <summary>
     /// Status code operation.
@@ -222,6 +224,6 @@
         /// </summary>
         /// <param name="code">Error code</param>
         /// <returns></returns>
-        public static string DecodeError(int code) { return NativeLibrary.DecodeError(code); }
+        public static string DecodeError(int code) { return plctag.plc_tag_decode_error(code); }
     }
 }
